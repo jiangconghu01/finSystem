@@ -1,12 +1,14 @@
-<template lang='html'>
-  <div>{{a}}</div>
+<template>
+  <div class="czxt">
+    <div>{{aa}}33333333333333333333</div>
+  </div>
 </template>
 
 <script>
 export default {
   data () {
     return {
-        a:'this is index page'
+        aa:'this is index page'
     };
   },
 
@@ -21,4 +23,7 @@ export default {
 
 </script>
 <style lang='scss' scoped>
+.czxt{
+  color:red;
+}
 </style>

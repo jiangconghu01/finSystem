@@ -4,7 +4,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const isDev = process.env.NODE_ENV === 'development';
-console.log(process.env);
+console.log(process.env.NODE_ENV);
 module.exports = {
     // context: path.resolve(__dirname, '../src'), // webpack查找相对路径文件时候会以该路径为基础路径
     entry: {
@@ -12,7 +12,7 @@ module.exports = {
         echarts: 'echarts',
         axios: 'axios',
         vue: 'vue',
-        index: ['babel-polyfill', './src/index.js'],
+        czxt: ['babel-polyfill', './index.js'],
     },
     output: {
         filename: '[name].bundle.js',
@@ -58,9 +58,9 @@ module.exports = {
         new CleanWebpackPlugin(['../dist']),
         new HtmlWebpackPlugin({
             title: 'index',
-            filename: 'index.html',
-            template: 'src/template/index.html',
-            chunk: ['vue', 'axios', 'index'],
+            filename: 'czxt.html',
+            template: 'template/index.html',
+            chunk: ['vue', 'axios', 'czxt'],
             excludeChunks: ['jquery', 'echarts'],
             minify: {
                 collapseWhitespace: false
