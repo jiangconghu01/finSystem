@@ -5,7 +5,7 @@ module.exports = merge(common, {
     mode: 'development',
     devServer: {
         contentBase: './dist',
-        index: 'czxt.html',
+        index: 'log.html',
         compress: true,
         hot: true,
         host: '127.0.0.1',

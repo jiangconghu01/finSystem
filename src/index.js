@@ -1,16 +1,15 @@
-import router from './router/indexRouter.js';
+import router from '../router/indexRouter.js';
 import Vue from 'vue';
 
 import axios from 'axios';
+import echarts from 'echarts';
 import Czxt from './czxt.vue';
-import store from './status/store.js';
+import store from '../status/store.js';
 Vue.prototype.axios = axios;
+Vue.prototype.echarts = echarts;
 new Vue({
     el: '#main',
     router,
     store,
-    // components: { Czxt },
-    // template: '<Czxt/>'
     render: h => h(Czxt)
 });
-console.log(44444444444444444);

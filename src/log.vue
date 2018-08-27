@@ -1,7 +1,6 @@
 <template>
   <div class="czxt">
-    <div>{{aa}}</div>
-     <router-view></router-view>
+    <div class="test">{{aa}}</div>
   </div>
 </template>
 
@@ -12,7 +11,6 @@ export default {
         aa:'this is index page'
     };
   },
-
   components: {},
 
   computed: {},
@@ -27,6 +25,6 @@ export default {
 </script>
 <style lang='scss' scoped>
 .czxt{
-  color:red;
+  color:green;
 }
 </style>

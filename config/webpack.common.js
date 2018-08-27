@@ -8,11 +8,8 @@ console.log(process.env.NODE_ENV);
 module.exports = {
     // context: path.resolve(__dirname, '../src'), // webpack查找相对路径文件时候会以该路径为基础路径
     entry: {
-        jquery: 'jquery',
-        echarts: 'echarts',
-        axios: 'axios',
-        vue: 'vue',
-        czxt: ['babel-polyfill', './index.js'],
+        czxt: ['babel-polyfill', './src/index.js'],
+        log: ['./src/log.js']
     },
     output: {
         filename: '[name].bundle.js',
@@ -30,25 +27,25 @@ module.exports = {
     optimization: {
         splitChunks: {
             cacheGroups: {
-                lib1: {
+                jquery: {
                     chunks: 'all',
+                    test: /[\\/]node_modules[\\/]jquery[\\/]/,
                     name: 'jquery',
-                    enforce: true
                 },
-                lib2: {
+                echarts: {
                     chunks: 'all',
+                    test: /[\\/]node_modules[\\/]echarts[\\/]/,
                     name: 'echarts',
-                    enforce: true
                 },
-                lib3: {
+                vue: {
                     chunks: 'all',
+                    test: /[\\/]node_modules[\\/]vue[\\/]/,
                     name: 'vue',
-                    enforce: true
                 },
-                lib4: {
+                axios: {
                     chunks: 'all',
+                    test: /[\\/]node_modules[\\/]axios[\\/]/,
                     name: 'axios',
-                    enforce: true
                 }
             }
         }
@@ -60,13 +57,24 @@ module.exports = {
             title: 'index',
             filename: 'czxt.html',
             template: 'template/index.html',
-            chunk: ['vue', 'axios', 'czxt'],
-            excludeChunks: ['jquery', 'echarts'],
+            chunk: ['czxt', 'echarts', 'vue', 'axios'],
+            excludeChunks: ['log'],
             minify: {
                 collapseWhitespace: false
             },
             hash: true
         }),
+        new HtmlWebpackPlugin({
+            title: 'log',
+            filename: 'log.html',
+            template: 'template/log.html',
+            chunk: ['log', 'vue'],
+            excludeChunks: ['czxt', 'axios', 'echarts'],
+            minify: {
+                collapseWhitespace: false
+            },
+            hash: true
+        })
     ],
     module: {
         rules: [{
@@ -95,10 +103,10 @@ module.exports = {
                 use: [isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
                     {
                         loader: 'css-loader',
-                        options: {
-                            modules: true,
-                            localIdentName: '[name]-[local]-[hash:base64:8]'
-                        }
+                        // options: {
+                        //     modules: true,
+                        //     localIdentName: '[name]-[local]-[hash:base64:8]'
+                        // }
                     },
                     'postcss-loader',
                     'sass-loader'
@@ -109,7 +117,9 @@ module.exports = {
                 use: [
                     isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
                     'css-loader'
-                ]
+                ],
+                include: path.join(__dirname, 'src'), //限制范围，提高打包速度
+                exclude: /node_modules/
             },
             {
                 test: /\.(png|svg|jpg|gif)$/,
