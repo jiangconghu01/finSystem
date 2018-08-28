@@ -4,12 +4,14 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const isDev = process.env.NODE_ENV === 'development';
-console.log(process.env.NODE_ENV);
 module.exports = {
     // context: path.resolve(__dirname, '../src'), // webpack查找相对路径文件时候会以该路径为基础路径
     entry: {
         czxt: ['babel-polyfill', './src/index.js'],
-        log: ['./src/log.js']
+        log: ['./src/log.js'],
+        echarts: 'echarts',
+        vue: 'vue',
+        axios: 'axios'
     },
     output: {
         filename: '[name].bundle.js',
@@ -27,25 +29,23 @@ module.exports = {
     optimization: {
         splitChunks: {
             cacheGroups: {
-                jquery: {
-                    chunks: 'all',
-                    test: /[\\/]node_modules[\\/]jquery[\\/]/,
-                    name: 'jquery',
-                },
                 echarts: {
                     chunks: 'all',
                     test: /[\\/]node_modules[\\/]echarts[\\/]/,
                     name: 'echarts',
+                    enforce: true
                 },
                 vue: {
                     chunks: 'all',
                     test: /[\\/]node_modules[\\/]vue[\\/]/,
                     name: 'vue',
+                    enforce: true
                 },
                 axios: {
                     chunks: 'all',
                     test: /[\\/]node_modules[\\/]axios[\\/]/,
                     name: 'axios',
+                    enforce: true
                 }
             }
         }
@@ -118,7 +118,7 @@ module.exports = {
                     isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
                     'css-loader'
                 ],
-                include: path.join(__dirname, 'src'), //限制范围，提高打包速度
+                include: path.join(__dirname, 'src'),
                 exclude: /node_modules/
             },
             {

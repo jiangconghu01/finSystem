@@ -1,6 +1,5 @@
 <template>
   <div class="czxt">
-    <div class="test">{{aa}}</div>
      <router-view></router-view>
   </div>
 </template>
@@ -27,8 +26,7 @@ export default {
 <style lang='scss' scoped>
 .czxt{
   color:red;
-  .test{
-    transform: rotate(50deg)
-  }
+  background-color: aqua;
+  font-size: 20px;
 }
 </style>

@@ -5,20 +5,11 @@ module.exports = merge(common, {
     mode: 'development',
     devServer: {
         contentBase: './dist',
-        index: 'log.html',
+        index: 'czxt.html',
         compress: true,
         hot: true,
         host: '127.0.0.1',
-        port: 8090,
-        // proxy: {
-        //     '/czxt/*': {
-        //         // target: 'http://rap2api.taobao.org/app/mock/18550',
-        //         // target: 'http://134.96.245.118:7001/',
-        //         target: 'http://localhost:3000/',
-        //         changeOrigin: true,
-        //         secure: false,
-        //     }
-        // }
+        port: 8090
     },
     devtool: 'inline-source-map',
     plugins: [
