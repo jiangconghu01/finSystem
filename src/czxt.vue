@@ -25,8 +25,7 @@ export default {
 </script>
 <style lang='scss' scoped>
 .czxt{
-  color:red;
-  background-color: aqua;
-  font-size: 20px;
+    width: 100%;
+    height: 100%;
 }
 </style>
