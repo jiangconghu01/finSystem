@@ -163,13 +163,22 @@
     <div class="login-form">
       <ul class="input-box">
         <li><p>才智系统登录</p></li>
-        <li><input type="text" placeholder="请输入手机号码/MSS账号/EIP账号"></li>
-        <li><input type="text" placeholder="请输入密码"></li>
+        <li>
+        <input type="text" 
+        placeholder="请输入手机号码/MSS账号/EIP账号"
+        v-model="userCode"
+        >
+        </li>
+        <li>
+          <input type="text" 
+          v-model="userPassword"
+          placeholder="请输入密码">
+        </li>
         <li>
           <input class="verify-code" type="text" placeholder="请输入验证码">
           <input class="verify-code-text" type="button" value="获取验证码" @click="countDown()">
         </li>
-        <li><button class="login-action">登录</button></li>
+        <li><button class="login-action" @click="loginAction()">登录</button></li>
         <li><font size="2">忘记密码？</font></li>
       </ul>
       <div class="form-footer">
@@ -195,10 +204,15 @@
 </template>
 
 <script>
+import { JSEncrypt } from 'jsencrypt';
 export default {
   data () {
     return {
-        mheight: ''
+        mheight: '',
+        userCode: '',
+        userPassword: '',
+        publicKey: '',
+        verifyCode: ''
     };
   },
 
@@ -229,7 +243,36 @@ export default {
       //});
     },
     countDown(){
-
+      this.$message({
+        type:'warning',
+        showClose: true,
+        center: true,
+        duration: 3000,//配置为0不会自动关闭
+        message:'用户名和密码不能为空'
+      });
+    },
+    async getPublicKey(){
+      const data = await this.$http.get('/czxt/pages/getRSAPublicKey.do');
+      this.publicKey = JSON.parse(data).publicKey;
+    
+    },
+    async loginAction(){
+      const encrypt = new JSEncrypt();
+      const data = {
+        publicKey: encrypt.encrypt('1'),
+        inUserCode: encrypt.encrypt(this.userCode),
+        inPassword: encrypt.encrypt(this.userPassword),
+        inVerifyCode: encrypt.encrypt('1')
+      }
+      console.log(data);
+      const res = await this.$http.post('/czxt/pages/logining.do', data);
+      // this.$axios.post('/czxt/pages/logining.do',data)
+      // .then((res) =>{
+          
+      // })
+      // .catch((err) =>{
+      //   console.info(err);
+      // });
     }
   }
 }

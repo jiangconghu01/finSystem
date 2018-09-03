@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Login from '../src/login.vue';
+import Login from '../login.vue';
 
 Vue.use(Router);
 export default new Router({
@@ -8,5 +8,5 @@ export default new Router({
         path: '/',
         name: 'Login',
         component: Login,
-    }],
+    }]
 });

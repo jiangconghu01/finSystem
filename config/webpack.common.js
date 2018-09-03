@@ -118,8 +118,8 @@ module.exports = {
                     isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
                     'css-loader'
                 ],
-                include: path.join(__dirname, 'src'),
-                exclude: /node_modules/
+                // include: path.join(__dirname, 'src'),
+                // exclude: /node_modules/
             },
             {
                 test: /\.(png|svg|jpg|gif)$/,
