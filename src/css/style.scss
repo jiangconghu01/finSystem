@@ -1,0 +1,40 @@
+/* 集中修改element组件库的默认样式 */
+
+.nav {
+    .el-tabs--border-card>.el-tabs__header {
+        background: url('../static/navbg.png') no-repeat;
+        background-size: cover;
+    }
+    .el-tabs--border-card>.el-tabs__header .el-tabs__item {
+        color: #fff;
+    }
+    .el-tabs--border-card>.el-tabs__header .el-tabs__item.is-active {
+        background-color: #004DA1;
+        border-right-color: #004DA1;
+        border-left-color: #004DA1;
+        //color: #fff;
+        height: 39px;
+    }
+    .el-tabs__nav-next,
+    .el-tabs__nav-prev {
+        color: #fff;
+    }
+    .el-tabs__nav-next {
+        right: 5px;
+        ;
+    }
+    .el-tabs__nav-prev {
+        left: 5px;
+    }
+    .el-tabs__nav.is-top {
+        &>.el-tabs__item:nth-child(1) {
+            padding-left: 30px;
+        }
+        &>.el-tabs__item:last-child {
+            padding-right: 30px;
+        }
+    }
+    .el-tabs--border-card>.el-tabs__content {
+        padding: 0px;
+    }
+}

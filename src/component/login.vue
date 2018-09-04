@@ -2,7 +2,7 @@
 .login-page{
   width: 100%;
   height: 100%;
-  background: url("./static/bjtp.png") no-repeat;
+  background: url("../static/bjtp.png") no-repeat;
   background-size:100% 100%; 
   background-attachment:fixed;
   position: relative;
@@ -156,9 +156,9 @@
     <!-- <img src="./static/bjtp.png" alt=""> -->
     <div class="login-logo">
       <span class="logo">
-        <img src="./static/zybt.png" alt="">
+        <img src="../static/zybt.png" alt="">
       </span>
-      <span class="card"><img src="./static/wzz.png" alt=""></span>
+      <span class="card"><img src="../static/wzz.png" alt=""></span>
     </div>
     <div class="login-form">
       <ul class="input-box">
@@ -265,14 +265,8 @@ export default {
         inVerifyCode: encrypt.encrypt('1')
       }
       console.log(data);
-      const res = await this.$http.post('/czxt/pages/logining.do', data);
-      // this.$axios.post('/czxt/pages/logining.do',data)
-      // .then((res) =>{
-          
-      // })
-      // .catch((err) =>{
-      //   console.info(err);
-      // });
+      //const res = await this.$http.post('/czxt/pages/logining.do', data);
+      this.$router.push({name: 'Index'});
     }
   }
 }
