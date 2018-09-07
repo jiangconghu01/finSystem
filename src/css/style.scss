@@ -1,6 +1,11 @@
 /* 集中修改element组件库的默认样式 */
 
+//导航条
 .nav {
+    .el-tabs--border-card {
+        box-shadow: none;
+        border-bottom: none;
+    }
     .el-tabs--border-card>.el-tabs__header {
         background: url('../static/navbg.png') no-repeat;
         background-size: cover;
@@ -9,7 +14,7 @@
         color: #fff;
     }
     .el-tabs--border-card>.el-tabs__header .el-tabs__item.is-active {
-        background-color: #004DA1;
+        background-color: #163775;
         border-right-color: #004DA1;
         border-left-color: #004DA1;
         //color: #fff;
@@ -36,5 +41,44 @@
     }
     .el-tabs--border-card>.el-tabs__content {
         padding: 0px;
+        height: 100%;
+    }
+    //左树形结构
+    .left-side {
+        .el-tree {
+            background-color: #F7F7F7;
+        }
+        .el-icon-caret-right:before {
+            background: url('../static/dirblueoff.png') no-repeat;
+            background-size: cover;
+            width: 16px;
+            height: 13px;
+            display: inline-block;
+            content: '';
+        }
+        .el-tree-node__expand-icon.expanded {
+            transform: none;
+            &::before {
+                background: url('../static/dirblueon.png') no-repeat;
+                background-size: cover;
+            }
+        }
+        .el-tree-node__children {
+            .el-icon-caret-right:before {
+                background: url('../static/fileblue.png') no-repeat;
+                background-size: cover;
+                width: 14px;
+                height: 18px;
+                display: inline-block;
+                content: '';
+            }
+            .is-current .el-tree-node__expand-icon {
+                transform: none;
+                &::before {
+                    background: url('../static/filebluefocus.png') no-repeat;
+                    background-size: cover;
+                }
+            }
+        }
     }
 }

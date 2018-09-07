@@ -1,6 +1,6 @@
 <template>
   <div class="index">
-      <div class="header">
+      <div class="header" ref="header">
           <img src="../static/dxlogo.png" alt="">
           <img src="../static/split.png" alt="">
           <img src="../static/czlogo.png" alt="">
@@ -16,10 +16,11 @@
               <span class="action exit">退出</span>
           </div>
       </div>
+      <!-- <div class="nav" :style="{height:contentHeight }"> -->
       <div class="nav">
         <el-tabs type="border-card">
         <el-tab-pane label="用户管理">
-            <Content/>
+            <Content :height="contentHeight"/>
         </el-tab-pane>
         <el-tab-pane label="配置管理">配置管理</el-tab-pane>
         <el-tab-pane label="角色管理">角色管理</el-tab-pane>
@@ -39,7 +40,8 @@ import Content from './indexContent.vue';
 export default {
   data () {
     return {
-        aa:'this is index page'
+        aa:'this is index page',
+        contentHeight: 400
     };
   },
   components: {
@@ -49,6 +51,10 @@ export default {
   computed: {},
 
   mounted() {
+      const bodyHeight = document.body.clientHeight ;
+      const headerH = this.$refs.header.offsetHeight;
+      this.contentHeight = bodyHeight - headerH - 42;
+
   },
 
   methods: {}
@@ -56,6 +62,9 @@ export default {
 
 </script>
 <style lang='scss' scoped>
+    .index{
+        height: 100%;
+    }
     .header{
         background: url('../static/topbg.png');
         &::after{
