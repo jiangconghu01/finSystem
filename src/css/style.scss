@@ -43,6 +43,7 @@
     .el-tabs--border-card>.el-tabs__content {
         padding: 0px;
         height: calc(100% - 40px);
+        overflow: visible;
         &>div{
             height: 100%;
         }

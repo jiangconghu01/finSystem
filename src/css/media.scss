@@ -1,7 +1,11 @@
 @media screen and (min-width:1450px) {
     .index {
         font-size: 18px;
+        .nav{
+            height: calc(100% - 71px);
+        }
     }
+
 }
 
 @media screen and (max-width:1450px) {

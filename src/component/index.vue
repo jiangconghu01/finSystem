@@ -1,6 +1,6 @@
 <template>
   <div class="index">
-      <div class="header" ref="header">
+      <div class="header" ref="header" id="header">
           <img src="../static/dxlogo.png" alt="">
           <img src="../static/split.png" alt="">
           <img src="../static/czlogo.png" alt="">
@@ -16,11 +16,11 @@
               <span class="action exit">退出</span>
           </div>
       </div>
-      <!-- <div class="nav" :style="{height:contentHeight }"> -->
-      <div class="nav">
+      <div class="nav" :style="{height:contentH}">
+      <!-- <div class="nav"> -->
         <el-tabs type="border-card">
         <el-tab-pane label="用户管理">
-            <Content :height="contentHeight"/>
+            <Content @setHeight="getHeight"/>
         </el-tab-pane>
         <el-tab-pane label="配置管理">配置管理</el-tab-pane>
         <el-tab-pane label="角色管理">角色管理</el-tab-pane>
@@ -41,23 +41,32 @@ export default {
   data () {
     return {
         aa:'this is index page',
-        contentHeight: 400
+        contentHeight: '400px'
     };
   },
   components: {
       Content
   },
 
-  computed: {},
+  methods: {
+      getHeight(h){
+          this.contentHeight = h;
+      }
+  },
+  computed: {
+      contentH(){
+          return this.contentHeight;
+      }
+  },
 
   mounted() {
-      const bodyHeight = document.body.clientHeight ;
-      const headerH = this.$refs.header.offsetHeight;
-      this.contentHeight = bodyHeight - headerH - 42;
+    //   const bodyHeight = document.body.scrollHeight ;
+    //   const headerH = this.$refs.header.offsetHeight;
+    //   this.contentHeight = bodyHeight - headerH - 40;
+    //   console.log(bodyHeight)
 
   },
 
-  methods: {}
 }
 
 </script>

@@ -20,6 +20,7 @@ export default {
             type: Number,
             required: false
         }
+    
   },
   data () {
     return {
@@ -90,7 +91,11 @@ export default {
   computed: {},
 
   mounted() {
-
+  
+    this.$nextTick(()=>{
+        const h = document.body.scrollHeight - document.getElementById('header').scrollHeight +'px';
+        this.$emit('setHeight', h);
+    });
   }
 
 }
