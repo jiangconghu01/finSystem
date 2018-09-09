@@ -5,6 +5,8 @@
     .el-tabs--border-card {
         box-shadow: none;
         border-bottom: none;
+        background-color: #F7F7F7;
+        height: 100%;
     }
     .el-tabs--border-card>.el-tabs__header {
         background: url('../static/navbg.png') no-repeat;
@@ -26,7 +28,6 @@
     }
     .el-tabs__nav-next {
         right: 5px;
-        ;
     }
     .el-tabs__nav-prev {
         left: 5px;
@@ -41,7 +42,10 @@
     }
     .el-tabs--border-card>.el-tabs__content {
         padding: 0px;
-        height: 100%;
+        height: calc(100% - 40px);
+        &>div{
+            height: 100%;
+        }
     }
     //左树形结构
     .left-side {
@@ -81,4 +85,20 @@
             }
         }
     }
+
+}
+//首页下载中心和常用网站
+#basic-download-web{
+    .el-tabs__item{
+        color: #7F7F7F;
+        &.is-active{
+            color: #409EFF;
+        }
+        &:hover{
+            color: #409EFF;
+        }
+    }
+    .el-tabs__nav-wrap::after{
+        height: 1px;
+    }      
 }

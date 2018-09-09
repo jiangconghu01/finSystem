@@ -64,28 +64,30 @@ export default {
 <style lang='scss' scoped>
     .index{
         height: 100%;
+        background-color: #F7F7F7;
     }
     .header{
         background: url('../static/topbg.png');
+        height: 70px;
         &::after{
             display: inline-block;
             content: '';
-            margin-top: 5%;
+            //margin-top: 5%;
         }
         img{
           float: left;
           margin-left:1.5%;
             &:nth-child(1){
                 margin-top:1%;
-                width: 10%;
+                //width: 10%;
             }  
             &:nth-child(2){
                 margin-top:0.2%;
-                width: 0.1%;
+                //width: 0.1%;
             }  
             &:nth-child(3){
                 margin-top:1.5%;
-                 width: 15%;
+                 //width: 15%;
             }  
         }
         .header-text{
@@ -104,6 +106,7 @@ export default {
     }
     .nav{
         color: #fff;
+        height: calc(100% - 51px);
         // background: url('../static/navbg.png');
         // &::after{
         //     display: inline-block;

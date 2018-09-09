@@ -4,20 +4,21 @@
 
 <script>
 export default {
-  data () {
-    return {
-    };
-  },
+    data () {
+        return {
+        };
+    },
 
-  components: {},
+    components: {},
 
-  computed: {},
+    computed: {},
 
-  mounted() {},
+    mounted() {
+        console.log('test');
+    },
 
-  methods: {}
-}
-
+    methods: {}
+};
 </script>
 <style lang='scss' scoped>
  .test{

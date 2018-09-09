@@ -1,18 +1,19 @@
 <template>
-  <div class="container" :style="{height:height+'px'}">
+  <!-- <div class="container" :style="{height:height+'px'}"> -->
+  <div class="container" >
     <div class="left-side">
       <p class="title">土地房屋管理</p>
       <el-tree :data="dataTree" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
     </div>
     <div class="right-side">
-        <component v-bind:is="currentContent" class="right-content"></component>
+        <component v-bind:is="currentContent" :data="tt" class="right-content"></component>
     </div>
   </div>
 </template>
 
 <script>
-import Test from './rightcontent/test.vue';
-import Test2 from './rightcontent/test2.vue';
+import Basic from './rightcontent/basic.vue';
+import Basic2 from './rightcontent/basic2.vue';
 export default {
   props:{
     height:{
@@ -22,17 +23,19 @@ export default {
   },
   data () {
     return {
-          currentContent: 'Test',
+          boxheight:this.height,
+          currentContent: 'Basic',
+          tt:1237,
           dataTree: [{
           label: '一级 1',
           children: [
           {
             label: '二级 1-1',
-            test: 'Test'
+            test: 'Basic'
           },
           {
             label: '二级 1-2',
-            test: 'Test2'
+            test: 'Basic2'
           },
           {
             label: '二级 1-3'
@@ -80,21 +83,23 @@ export default {
       }
   },
   components: {
-      Test,
-      Test2
+      Basic,
+      Basic2
   },
 
   computed: {},
 
-  mounted() {}
+  mounted() {
+
+  }
 
 }
 
 </script>
 <style lang='scss' scoped>
     .container{
-        height: calc(100% - 38px);
-        //background-color:azure;
+        height: 100%;
+        background-color:#fff;
         padding:0px;
         .left-side{
           overflow: auto;
@@ -110,13 +115,14 @@ export default {
           height: 100%;
           padding-left: 5px;
           background-color: #F7F7F7;
+          border-right: 1px solid #EAEAEA;
         }
         .right-side{
           height: 100%;
           width: calc(100% - 205px);
-          overflow: auto;
+         // overflow: auto;
           float: left;
-          background-color: aqua;
+          //background-color: aqua;
          
         }
     }

@@ -50,6 +50,7 @@ export default {
     width: 100%;
     padding: 10px;
     padding-top: 20px;
+    font-size: 16px;
     .bar{
         display: inline-block;
         width: 5px;
