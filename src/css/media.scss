@@ -10,6 +10,9 @@
         .header{
             height: 60px;
         }
+        .nav{
+            height: calc(100% - 61px);
+        }
     }
 }
 
@@ -19,6 +22,9 @@
         .header{
             height: 60px;
         }
+        .nav{
+            height: calc(100% - 61px);
+        }        
     }
 }
 
@@ -28,5 +34,8 @@
         .header{
             height: 45px;
         }
+        .nav{
+            height: calc(100% - 46px);
+        }        
     }
 }
