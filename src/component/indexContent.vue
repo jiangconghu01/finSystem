@@ -4,6 +4,7 @@
     <div class="left-side">
       <p class="title">土地房屋管理</p>
       <el-tree :data="dataTree" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
+      <el-tree :data="dataTree2" :props="defaultProps" @node-click="handleNodeClick2" class="leve1-tree"></el-tree>
     </div>
     <div class="right-side">
         <component v-bind:is="currentContent" :data="tt" class="right-content"></component>
@@ -27,6 +28,7 @@ export default {
           boxheight:this.height,
           currentContent: 'Basic',
           tt:1237,
+          dataTree2:[{label: 'erte'},{label: 'yyrtyrty'},{label: '一级yyyyy'},],
           dataTree: [{
           label: '一级 1',
           children: [
@@ -48,6 +50,10 @@ export default {
             label: '二级 2-1',
             children: [{
               label: '三级 2-1-1'
+            },{
+              label: '三级 2-1-2'
+            },{
+              label: '三级 2-1-3'
             }]
           }, {
             label: '二级 2-2',
@@ -81,6 +87,9 @@ export default {
         //console.log(data);
         const temp = data.test;
         temp && (this.currentContent = temp);
+      },
+      handleNodeClick2(data) {
+        console.log(data);
       }
   },
   components: {
@@ -92,7 +101,7 @@ export default {
 
   mounted() {
   
-    this.$nextTick(()=>{
+    this.currentContent === 'Basic' && this.$nextTick(()=>{
         const h = document.body.scrollHeight - document.getElementById('header').scrollHeight +'px';
         this.$emit('setHeight', h);
     });

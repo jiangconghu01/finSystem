@@ -44,7 +44,7 @@
         padding: 0px;
         height: calc(100% - 40px);
         overflow: visible;
-        &>div{
+        &>div {
             height: 100%;
         }
     }
@@ -69,7 +69,7 @@
             }
         }
         .el-tree-node__children {
-            .el-icon-caret-right:before {
+            .el-icon-caret-right.is-leaf:before {
                 background: url('../static/fileblue.png') no-repeat;
                 background-size: cover;
                 width: 14px;
@@ -79,27 +79,27 @@
             }
             .is-current .el-tree-node__expand-icon {
                 transform: none;
-                &::before {
+                &.is-leaf::before {
                     background: url('../static/filebluefocus.png') no-repeat;
                     background-size: cover;
                 }
             }
         }
     }
-
 }
+
 //首页下载中心和常用网站
-#basic-download-web{
-    .el-tabs__item{
+#basic-download-web {
+    .el-tabs__item {
         color: #7F7F7F;
-        &.is-active{
+        &.is-active {
             color: #409EFF;
         }
-        &:hover{
+        &:hover {
             color: #409EFF;
         }
     }
-    .el-tabs__nav-wrap::after{
+    .el-tabs__nav-wrap::after {
         height: 1px;
-    }      
+    }
 }
