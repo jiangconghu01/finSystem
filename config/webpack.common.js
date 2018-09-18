@@ -93,7 +93,7 @@ module.exports = {
                     loader: 'babel-loader',
                     options: {
                         presets: ['env'],
-                        plugins: ['transform-runtime']
+                        plugins: ['transform-runtime', 'transform-object-rest-spread']
                     }
                 }
             },

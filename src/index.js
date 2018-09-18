@@ -4,7 +4,7 @@ import Vue from 'vue';
 import http from './util/ajax.js';
 import echarts from 'echarts';
 import Czxt from './czxt.vue';
-import store from '../status/store.js';
+import store from './store/store.js';
 import ElementUI from 'element-ui';
 import './css/reset.scss';
 import 'element-ui/lib/theme-chalk/index.css';

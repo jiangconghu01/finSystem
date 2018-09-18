@@ -4,7 +4,13 @@
     <div class="left-side">
       <p class="title">土地房屋管理</p>
       <el-tree :data="dataTree" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
-      <el-tree :data="dataTree2" :props="defaultProps" @node-click="handleNodeClick2" class="leve1-tree"></el-tree>
+      <el-tree 
+      :data="dataTree2" 
+      :props="defaultProps" 
+      node-key="id" 
+      @node-click="handleNodeClick2" 
+      :default-expanded-keys=[1]
+      class="leve1-tree"></el-tree>
     </div>
     <div class="right-side">
         <component v-bind:is="currentContent" :data="tt" class="right-content"></component>
@@ -28,7 +34,21 @@ export default {
           boxheight:this.height,
           currentContent: 'Basic',
           tt:1237,
-          dataTree2:[{label: 'erte'},{label: 'yyrtyrty'},{label: '一级yyyyy'},],
+          dataTree2:[{
+            id:1,
+            label: '一级 1',
+            children: [
+            {
+              label: 'werwerwerw',
+            },
+            {
+              label: 'dfsdfsdfsdfsdf',
+            },
+            {
+              label: 'sdfsdfsdfsdf'
+            }
+            ]
+           }],
           dataTree: [{
           label: '一级 1',
           children: [

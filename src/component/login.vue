@@ -170,7 +170,7 @@
         >
         </li>
         <li>
-          <input type="text" 
+          <input type="password" 
           v-model="userPassword"
           placeholder="请输入密码">
         </li>
@@ -205,6 +205,7 @@
 
 <script>
 import { JSEncrypt } from 'jsencrypt';
+import { mapGetters } from 'vuex';
 export default {
   data () {
     return {
@@ -220,7 +221,11 @@ export default {
    
   },
 
-  computed: {},
+  computed: {
+        ...mapGetters([
+            'ip'
+        ])
+  },
 
   mounted() {
     this.setLeyout();
@@ -231,6 +236,7 @@ export default {
         this.setLeyout();
       },500); 
     }
+    console.log(this.ip);
   },
 
   methods: {
@@ -252,20 +258,21 @@ export default {
       });
     },
     async getPublicKey(){
-      const data = await this.$http.get('/czxt/pages/getRSAPublicKey.do');
+      const data = await this.$http.get('http://134.98.100.73:9090/czxt/pages/getRSAPublicKey.do');
       this.publicKey = JSON.parse(data).publicKey;
-    
     },
     async loginAction(){
       const encrypt = new JSEncrypt();
+      // const data = await this.$http.get('http://134.98.100.73:9090/czxt/pages/getRSAPublicKey.do');
+      // this.publicKey = JSON.parse(data).publicKey;
       const data = {
-        publicKey: encrypt.encrypt('1'),
+       // publicKey: encrypt.encrypt( this.publicKey),
         inUserCode: encrypt.encrypt(this.userCode),
         inPassword: encrypt.encrypt(this.userPassword),
         inVerifyCode: encrypt.encrypt('1')
       }
       console.log(data);
-      //const res = await this.$http.post('/czxt/pages/logining.do', data);
+     // const res = await this.$http.post('http://134.98.100.73:9090/czxt/pages/logining.do', data);
       this.$router.push({name: 'Index'});
     }
   }
