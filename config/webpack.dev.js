@@ -9,8 +9,18 @@ module.exports = merge(common, {
         index: 'czxt.html',
         compress: true,
         hot: true,
-        host: '127.0.0.1',
-        port: 8090
+        host: '0.0.0.0',
+        port: 8090,
+        proxy: {
+
+            '/czxt/*': {
+                //target: 'http://134.98.100.73:9090',
+                target: 'http://134.96.188.185:9000',
+                //changeOrigin: true,
+                secure: false,
+                // auth: 'admin': '1q2w3e4r'
+            }
+        }
     },
     devtool: 'inline-source-map',
     plugins: [

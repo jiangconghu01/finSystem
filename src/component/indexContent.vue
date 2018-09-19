@@ -120,7 +120,9 @@ export default {
   computed: {},
 
   mounted() {
-  
+    this.$http.get('/czxt/pagesnew/sysModule.action').then(res=>{
+      console.log(res);
+    });
     this.currentContent === 'Basic' && this.$nextTick(()=>{
         const h = document.body.scrollHeight - document.getElementById('header').scrollHeight +'px';
         this.$emit('setHeight', h);

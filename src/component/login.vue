@@ -236,7 +236,6 @@ export default {
         this.setLeyout();
       },500); 
     }
-    console.log(this.ip);
   },
 
   methods: {
@@ -258,21 +257,21 @@ export default {
       });
     },
     async getPublicKey(){
-      const data = await this.$http.get('http://134.98.100.73:9090/czxt/pages/getRSAPublicKey.do');
+      const data = await this.$http.get('/czxt/pages/getRSAPublicKey.do');
       this.publicKey = JSON.parse(data).publicKey;
     },
     async loginAction(){
       const encrypt = new JSEncrypt();
-      // const data = await this.$http.get('http://134.98.100.73:9090/czxt/pages/getRSAPublicKey.do');
-      // this.publicKey = JSON.parse(data).publicKey;
+      const resdata = await this.$http.get('/czxt/pages/getRSAPublicKey.do');
+      debugger
+      this.publicKey = resdata.data.publicKey[0];
+      encrypt.setPublicKey(this.publicKey);
       const data = {
-       // publicKey: encrypt.encrypt( this.publicKey),
         inUserCode: encrypt.encrypt(this.userCode),
         inPassword: encrypt.encrypt(this.userPassword),
         inVerifyCode: encrypt.encrypt('1')
       }
-      console.log(data);
-     // const res = await this.$http.post('http://134.98.100.73:9090/czxt/pages/logining.do', data);
+     const res = await this.$http.post('/czxt/pages/logining.do', data);
       this.$router.push({name: 'Index'});
     }
   }
