@@ -14,8 +14,8 @@ module.exports = merge(common, {
         proxy: {
 
             '/czxt/*': {
-                //target: 'http://134.98.100.73:9090',
-                target: 'http://134.96.188.185:9000',
+                target: 'http://134.96.245.118:7001',
+                //target: 'http://134.96.188.185:9000',
                 //changeOrigin: true,
                 secure: false,
                 // auth: 'admin': '1q2w3e4r'

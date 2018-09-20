@@ -1,5 +1,90 @@
 <template>
   <div class="basic-page  clearfix">
+        <div class="card common">
+            <Title-text>常用功能</Title-text>
+            <div class="card-list">
+                <div class="card-item">
+                    <Card :url="zjgl">
+                        <template slot="title">资金管理</template>
+                    </Card>
+                </div>
+                <div class="card-item">
+                    <Card :url="drdc">
+                        <template slot="title">导入导出</template>
+                    </Card>
+                </div>
+                <div class="card-item">
+                    <Card :url="wdbb">
+                        <template slot="title">我的报表</template>
+                    </Card>
+                </div>
+                <div class="card-item">
+                    <Card :url="swgl">
+                        <template slot="title">税务管理</template>
+                    </Card>
+                </div>
+                <div class="card-item">
+                    <Card :url="swgl">
+                        <template slot="title">税务管理</template>
+                    </Card>
+                </div>
+                <div class="card-item">
+                    <Card :url="swgl">
+                        <template slot="title">税务管理</template>
+                    </Card>
+                </div>
+                <div class="card-item">
+                    <Card :url="swgl">
+                        <template slot="title">税务管理</template>
+                    </Card>
+                </div>
+                <div class="card-item">
+                    <Card :url="swgl">
+                        <template slot="title">税务管理</template>
+                    </Card>
+                </div>
+                <div class="card-item">
+                    <Card :url="swgl">
+                        <template slot="title">税务管理</template>
+                    </Card>
+                </div>
+                <div class="card-item">
+                    <Card :url="swgl">
+                        <template slot="title">税务管理</template>
+                    </Card>
+                </div>
+                <div class="card-item">
+                    <Card :url="swgl">
+                        <template slot="title">税务管理</template>
+                    </Card>
+                </div>
+                <div class="card-item">
+                    <Card :url="swgl">
+                        <template slot="title">税务管理</template>
+                    </Card>
+                </div>
+                <div class="card-item">
+                    <Card :url="swgl">
+                        <template slot="title">税务管理</template>
+                    </Card>
+                </div>
+                <div class="card-item">
+                    <Card :url="swgl">
+                        <template slot="title">税务管理</template>
+                    </Card>
+                </div>
+                <div class="card-item">
+                    <Card :url="swgl">
+                        <template slot="title">税务管理</template>
+                    </Card>
+                </div>
+                <div class="card-item">
+                    <Card :url="swgl">
+                        <template slot="title">税务管理</template>
+                    </Card>
+                </div>
+            </div>
+        </div>
       <div class="left-box">
         <div class="card infor">
             <Title-text>最近业务通知</Title-text>
@@ -18,35 +103,31 @@
             <div class="bar">待处理工单<span class="num">12</span></div>               
             <div class="bar">待处理工单<span class="num">12</span></div>               
         </div>
-        <div class="card common">
+        <!-- <div class="card common">
             <Title-text>常用功能</Title-text>
             <div class="card-list">
                 <div class="card-item">
                     <Card :url="zjgl">
                         <template slot="title">资金管理</template>
-                        <template slot="text">稳定、安全、易用、可弹性伸缩的计算服务</template>
                     </Card>
                 </div>
                 <div class="card-item">
                     <Card :url="drdc">
                         <template slot="title">导入导出</template>
-                        <template slot="text">稳定、安全、易用、可弹性伸缩的计算服务</template>
                     </Card>
                 </div>
                 <div class="card-item">
                     <Card :url="wdbb">
                         <template slot="title">我的报表</template>
-                        <template slot="text">稳定、安全、易用、可弹性伸缩的计算服务</template>
                     </Card>
                 </div>
                 <div class="card-item">
                     <Card :url="swgl">
                         <template slot="title">税务管理</template>
-                        <template slot="text">稳定、安全、易用、可弹性伸缩的计算服务</template>
                     </Card>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="card download-web" id="basic-download-web">
             <el-tabs v-model="activeName" @tab-click="handleClick">
                 <el-tab-pane label="下载中心" name="first">
@@ -198,6 +279,31 @@ export default {
     border-left: 1px solid #EAEAEA;
     color:#4D4D4D;
     height: 100%;
+    padding-top: 1.4%;
+    .common{
+        margin-left: 1.4%;
+        padding-bottom: 20px;
+        min-height: 140px;
+        width:97%;
+        background-color: #fff;
+        border: 1px solid #EAEAEA;
+        box-shadow: 5px 5px 5px #EAEAEA;
+        .card-list{
+            font-size: 0;
+            min-width: 500px;
+            overflow: auto;
+        }
+        .card-item{
+            margin-top: 10px;
+            white-space: normal;
+            width: 17%;
+            height: 51px;
+            margin-left:2%;
+            display: inline-block;
+            vertical-align: top;
+            min-width: 135px;
+        }
+    }    
     .left-box{
         width:70%;
         //float: left;
@@ -205,7 +311,7 @@ export default {
         vertical-align: top;
         font-size:0;
         .infor{
-            height: 245px;
+            height: 265px;
             width: 47%;
             display: inline-block;
             vertical-align: top;
@@ -231,7 +337,7 @@ export default {
             }
         }
         .wait{
-            height: 245px;
+            height: 265px;
             display: inline-block;
             width: 47%;
             vertical-align: top;
@@ -250,27 +356,27 @@ export default {
                 }
             }
         }
-        .common{
-            height: 200px;
-            width:96%;
-            .card-list{
-                font-size: 0;
-                min-width: 500px;
-                overflow: auto;
-                white-space: nowrap;
-            }
-            .card-item{
-                white-space: normal;
-                width: 20%;
-                height: 120px;
-                margin-left:4%;
-                display: inline-block;
-                vertical-align: top;
-                min-width: 135px;
-            }
-        }
+        // .common{
+        //     height: 200px;
+        //     width:96%;
+        //     .card-list{
+        //         font-size: 0;
+        //         min-width: 500px;
+        //         overflow: auto;
+        //         white-space: nowrap;
+        //     }
+        //     .card-item{
+        //         white-space: normal;
+        //         width: 20%;
+        //         height: 61px;
+        //         margin-left:4%;
+        //         display: inline-block;
+        //         vertical-align: top;
+        //         min-width: 135px;
+        //     }
+        // }
         .download-web{
-            height: 200px;
+            height: 230px;
             width:96%;
             margin-bottom:20px;
             .el-row {

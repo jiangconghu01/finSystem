@@ -7,9 +7,9 @@
         </span>
        
     </div>
-    <div class="text">
+    <!-- <div class="text">
         <slot name="text"></slot>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -41,10 +41,11 @@ export default {
     box-sizing: border-box;
     width: 100%;
     height: 100%;
-    padding: 15px 10px;
+    padding: 10px 5px;
     border: 1px solid #EAEAEA;
     cursor: pointer;
     .title{
+        white-space: nowrap;
         img{
             width: 30px;
             height: 30px;
@@ -61,11 +62,11 @@ export default {
         }
         margin-left: 5px; 
     }
-    .text{
-        padding: 5px 10px;
-        font-size: 14px;
-        color: #999999;
+    // .text{
+    //     padding: 5px 10px;
+    //     font-size: 14px;
+    //     color: #999999;
         
-    }
+    // }
 }
 </style>

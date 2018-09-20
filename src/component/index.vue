@@ -92,6 +92,7 @@ export default {
             }  
             &:nth-child(2){
                 margin-top:0.2%;
+                height: 95%;
                 //width: 0.1%;
             }  
             &:nth-child(3){
