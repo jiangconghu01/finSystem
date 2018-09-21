@@ -241,7 +241,7 @@ import swglimg from '../../static/swgl.png';
 export default {
     props:{
         data:{
-            type: Number,
+            type: String,
             required: false
         }
     },

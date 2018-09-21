@@ -1,5 +1,5 @@
 <template>
-  <div class="test">teset2</div>
+  <div class="test">jsdkfskdfsd</div>
 </template>
 
 <script>
@@ -10,7 +10,9 @@ export default {
     },
 
     components: {},
-
+    created(){
+        //this.$http
+    },
     computed: {},
 
     mounted() {

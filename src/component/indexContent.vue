@@ -2,18 +2,26 @@
   <!-- <div class="container" :style="{height:height+'px'}"> -->
   <div class="container" >
     <div class="left-side">
-      <p class="title">土地房屋管理</p>
-      <el-tree :data="dataTree" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
+      <p class="title">{{leftMu && leftMu.name}}</p>
       <el-tree 
-      :data="dataTree2" 
+      v-if="leftMu " 
+      :data="leftMu.children" 
       :props="defaultProps" 
-      node-key="id" 
+      @node-click="handleNodeClick" 
+      :default-expand-all="true"
+      @mouseover.native="showTitle($event)"
+      ></el-tree>
+      <!-- <el-tree 
+      v-if="leftMu && leftMu.type === 'levelone'" 
+      :data="leftMu.children" 
+      :props="defaultProps" 
       @node-click="handleNodeClick2" 
-      :default-expanded-keys=[1]
-      class="leve1-tree"></el-tree>
+      :default-expand-all="true"
+      @mouseover.native="showTitle($event)"
+      class="leve1-tree"></el-tree> -->
     </div>
     <div class="right-side">
-        <component v-bind:is="currentContent" :data="tt" class="right-content"></component>
+        <component v-bind:is="currentContent" :data="url" class="right-content"></component>
     </div>
   </div>
 </template>
@@ -21,80 +29,24 @@
 <script>
 import Basic from './rightcontent/basic.vue';
 import Basic2 from './rightcontent/basic2.vue';
+import Ifreme from './rightcontent/ifremecontent.vue';
 export default {
   props:{
     height:{
-            type: Number,
-            required: false
-        }
+      type: Number,
+      required: false
+    },
+    mudata:{
+      type:Object,
+      required:true
+    }
     
   },
   data () {
     return {
-          boxheight:this.height,
-          currentContent: 'Basic',
-          tt:1237,
-          dataTree2:[{
-            id:1,
-            label: '一级 1',
-            children: [
-            {
-              label: 'werwerwerw',
-            },
-            {
-              label: 'dfsdfsdfsdfsdf',
-            },
-            {
-              label: 'sdfsdfsdfsdf'
-            }
-            ]
-           }],
-          dataTree: [{
-          label: '一级 1',
-          children: [
-          {
-            label: '二级 1-1',
-            test: 'Basic'
-          },
-          {
-            label: '二级 1-2',
-            test: 'Basic2'
-          },
-          {
-            label: '二级 1-3'
-          }
-          ]
-        }, {
-          label: '一级 2',
-          children: [{
-            label: '二级 2-1',
-            children: [{
-              label: '三级 2-1-1'
-            },{
-              label: '三级 2-1-2'
-            },{
-              label: '三级 2-1-3'
-            }]
-          }, {
-            label: '二级 2-2',
-            children: [{
-              label: '三级 2-2-1'
-            }]
-          }]
-        }, {
-          label: '一级 3',
-          children: [{
-            label: '二级 3-1',
-            children: [{
-              label: '三级 3-1-1'
-            }]
-          }, {
-            label: '二级 3-2',
-            children: [{
-              label: '三级 3-2-1'
-            }]
-          }]
-        }],
+        boxheight:this.height,
+        currentContent: 'Basic',
+        url:'1237',
         defaultProps: {
           children: 'children',
           label: 'label'
@@ -102,27 +54,48 @@ export default {
     };
   },
 
+  computed: {
+    leftMu(){
+      const name =this.mudata.name;
+      const list = this.mudata.children;
+      let isLevelOne = true;
+      list.forEach(element => {
+        element.children.length>0 && (isLevelOne = false);
+      });
+      return {
+        name:name,
+        children:isLevelOne?[{label:name,children:list,link:''}]:list,
+        type:isLevelOne?'levelone':'levelmore'
+      };
+    }
+  },
   methods: {
       handleNodeClick(data) {
-        //console.log(data);
-        const temp = data.test;
-        temp && (this.currentContent = temp);
-      },
-      handleNodeClick2(data) {
         console.log(data);
+        if(data.link){
+          this.currentContent = 'Ifreme';
+        }
+
+      },
+      showTitle(e){
+        if(e.target.className === 'el-tree-node__label' && e.target.nodeName === 'SPAN'){
+          e.target.setAttribute('title',e.target.innerText);
+        }
+       // console.log(e,e.target);
       }
   },
   components: {
       Basic,
-      Basic2
+      Basic2,
+      Ifreme
   },
 
-  computed: {},
 
   mounted() {
     // this.$http.get('/czxt/pagesnew/sysModule.action').then(res=>{
     //   console.log(res);
     // });
+
     this.currentContent === 'Basic' && this.$nextTick(()=>{
         const h = document.body.scrollHeight - document.getElementById('header').scrollHeight +'px';
         this.$emit('setHeight', h);
@@ -147,7 +120,7 @@ export default {
             height: 40px;
             line-height: 40px;
           }
-          width: 195px;
+          width: 215px;
           height: 100%;
           padding-left: 5px;
           background-color: #F7F7F7;
@@ -155,7 +128,7 @@ export default {
         }
         .right-side{
           height: 100%;
-          width: calc(100% - 205px);
+          width: calc(100% - 225px);
          // overflow: auto;
           float: left;
           //background-color: aqua;

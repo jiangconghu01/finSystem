@@ -53,6 +53,11 @@
         .el-tree {
             background-color: #F7F7F7;
         }
+        .el-tree-node__label {
+            width: 100%;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
         .el-icon-caret-right:before {
             background: url('../static/dirblueoff.png') no-repeat;
             background-size: cover;

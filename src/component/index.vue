@@ -19,17 +19,9 @@
       <div class="nav" :style="{height:contentH}">
       <!-- <div class="nav"> -->
         <el-tabs type="border-card">
-        <el-tab-pane label="用户管理">
-            <Content @setHeight="getHeight"/>
+        <el-tab-pane v-for="(ele,index) in mulist" :key="index" :label="ele.name">
+            <Content @setHeight="getHeight" :mudata="ele"/>
         </el-tab-pane>
-        <el-tab-pane label="配置管理">配置管理</el-tab-pane>
-        <el-tab-pane label="角色管理">角色管理</el-tab-pane>
-        <el-tab-pane label="角色管理">角色管理</el-tab-pane>
-        <el-tab-pane label="角色管理">角色管理</el-tab-pane>
-        <el-tab-pane label="角色管理">角色管理</el-tab-pane>
-
-
-        <el-tab-pane label="定时任务补偿">定时任务补偿</el-tab-pane>
         </el-tabs>
       </div>
   </div>
@@ -37,10 +29,11 @@
 
 <script>
 import Content from './indexContent.vue';
+import mu from './test.js';
 export default {
   data () {
     return {
-        aa:'this is index page',
+        mulist: [],
         contentHeight: '400px'
     };
   },
@@ -58,7 +51,40 @@ export default {
           return this.contentHeight;
       }
   },
-
+  created(){
+    const a = mu.map(ele => {
+      const item = {};
+      const level1 = ele.sysModuleName;
+      const childlist = ele.sysModuleList;
+      const muchildlist = [];
+      if(childlist.length > 0){
+        childlist.forEach(ele => {
+          const imu = {};
+          imu.label = ele.sysModuleName
+          imu.link = ele.sysModuleLink;
+          imu.sysModuleCode = ele.sysModuleCode;
+          imu.children = [];
+          const childlist2 = ele.sysModuleList;
+          if(childlist2.length > 0){
+            childlist2.forEach(e => {
+              imu.children.push({
+                label: e.sysModuleName,
+                link: e.sysModuleLink,
+                sysModuleCode: e.sysModuleCode
+              });
+            });
+          }
+          muchildlist.push(imu);
+        });
+      }
+      return {
+        name: level1 || '',
+        children: muchildlist
+      }
+    });
+    this.mulist = a;
+    console.log(a);
+  },
   mounted() {
     //   const bodyHeight = document.body.scrollHeight ;
     //   const headerH = this.$refs.header.offsetHeight;
