@@ -1,17 +1,24 @@
 <template>
-  <div class="test">jsdkfskdfsd</div>
+  <div class="test">
+      <iframe src="https://www.baidu.com/" frameborder="0">
+
+      </iframe>
+  </div>
 </template>
 
 <script>
 export default {
     data () {
         return {
+            iframeHtml:''
         };
     },
 
     components: {},
     created(){
-        //this.$http
+        // this.$http.get('https://www.baidu.com/').then(data =>{
+        //     console.log(data);
+        // })
     },
     computed: {},
 
@@ -24,6 +31,11 @@ export default {
 </script>
 <style lang='scss' scoped>
  .test{
-      height: 250px;
+    width: 100%;
+    height: 100%;
+     iframe{
+         width: 100%;
+         height: 100%;
+     }
  }
 </style>

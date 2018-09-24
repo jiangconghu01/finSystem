@@ -261,17 +261,17 @@ export default {
       this.publicKey = JSON.parse(data).publicKey;
     },
     async loginAction(){
-      const encrypt = new JSEncrypt();
-      const resdata = await this.$http.get('/czxt/pages/getRSAPublicKey.do');
-      debugger
-      this.publicKey = resdata.data.publicKey[0];
-      encrypt.setPublicKey(this.publicKey);
-      const data = {
-        inUserCode: encrypt.encrypt(this.userCode),
-        inPassword: encrypt.encrypt(this.userPassword),
-        inVerifyCode: encrypt.encrypt('1')
-      }
-     const res = await this.$http.post('/czxt/pages/logining.do', data);
+    //   const encrypt = new JSEncrypt();
+    //   const resdata = await this.$http.get('/czxt/pages/getRSAPublicKey.do');
+    //   debugger
+    //   this.publicKey = resdata.data.publicKey[0];
+    //   encrypt.setPublicKey(this.publicKey);
+    //   const data = {
+    //     inUserCode: encrypt.encrypt(this.userCode),
+    //     inPassword: encrypt.encrypt(this.userPassword),
+    //     inVerifyCode: encrypt.encrypt('1')
+    //   }
+    //  const res = await this.$http.post('/czxt/pages/logining.do', data);
       this.$router.push({name: 'Index'});
     }
   }
