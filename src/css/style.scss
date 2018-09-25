@@ -8,6 +8,9 @@
         background-color: #F7F7F7;
         height: 100%;
     }
+    .el-tabs__nav-wrap.is-scrollable {
+        padding: 0 30px 0 20px;
+    }
     .el-tabs--border-card>.el-tabs__header {
         background: url('../static/navbg.png') no-repeat;
         background-size: cover;
@@ -27,7 +30,7 @@
         color: #fff;
     }
     .el-tabs__nav-next {
-        right: 5px;
+        right: 10px;
     }
     .el-tabs__nav-prev {
         left: 5px;
@@ -52,6 +55,9 @@
     .left-side {
         .el-tree {
             background-color: #F7F7F7;
+        }
+        .is-current {
+            color: #409EFF;
         }
         .el-tree-node__label {
             width: 100%;

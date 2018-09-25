@@ -53,36 +53,6 @@
                         <template slot="title">税务管理</template>
                     </Card>
                 </div>
-                <div class="card-item">
-                    <Card :url="swgl">
-                        <template slot="title">税务管理</template>
-                    </Card>
-                </div>
-                <div class="card-item">
-                    <Card :url="swgl">
-                        <template slot="title">税务管理</template>
-                    </Card>
-                </div>
-                <div class="card-item">
-                    <Card :url="swgl">
-                        <template slot="title">税务管理</template>
-                    </Card>
-                </div>
-                <div class="card-item">
-                    <Card :url="swgl">
-                        <template slot="title">税务管理</template>
-                    </Card>
-                </div>
-                <div class="card-item">
-                    <Card :url="swgl">
-                        <template slot="title">税务管理</template>
-                    </Card>
-                </div>
-                <div class="card-item">
-                    <Card :url="swgl">
-                        <template slot="title">税务管理</template>
-                    </Card>
-                </div>
             </div>
         </div>
       <div class="left-box">
@@ -232,7 +202,7 @@
 
 <script>
 import TitleText from '../partcomponent/title.vue';
-import TitleText2 from '../partcomponent/title2.vue';
+import TitleText2 from '../partcomponent/titletext.vue';
 import Card from '../partcomponent/card.vue';
 import zjglimg from '../../static/zjgl.png';
 import drdcimg from '../../static/drdc.png';
@@ -240,7 +210,7 @@ import wdbbimg from '../../static/wdbb.png';
 import swglimg from '../../static/swgl.png';
 export default {
     props:{
-        data:{
+        setdata:{
             type: String,
             required: false
         }
@@ -267,7 +237,7 @@ export default {
     },
     computed: {},
     mounted() {
-        console.log(this.data);
+        console.log(this.setdata);
     }
 
 };

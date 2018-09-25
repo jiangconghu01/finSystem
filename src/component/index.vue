@@ -13,14 +13,14 @@
               <span>|</span>
               <span class="action mod-password">修改密码</span>
               <span>|</span>
-              <span class="action exit">退出</span>
+              <span class="action exit" @click="logout()">退出</span>
           </div>
       </div>
-      <div class="nav" :style="{height:contentH}">
+      <div class="nav" :style="contentH">
       <!-- <div class="nav"> -->
         <el-tabs type="border-card">
         <el-tab-pane v-for="(ele,index) in mulist" :key="index" :label="ele.name">
-            <Content @setHeight="getHeight" :mudata="ele"/>
+            <Content @setHeight="getHeight" :mudata="ele" :index="index"/>
         </el-tab-pane>
         </el-tabs>
       </div>
@@ -34,7 +34,9 @@ export default {
   data () {
     return {
         mulist: [],
-        contentHeight: '400px'
+        contentHeight: {
+            height:'400px'
+        }
     };
   },
   components: {
@@ -44,6 +46,11 @@ export default {
   methods: {
       getHeight(h){
           this.contentHeight = h;
+      },
+      logout(){
+          this.$http.get('/czxt/pages/logout.do').then(data =>{
+              this.$router.replace({name: 'Login'});
+          });
       }
   },
   computed: {
@@ -83,7 +90,6 @@ export default {
       }
     });
     this.mulist = a;
-    console.log(a);
   },
   mounted() {
     //   const bodyHeight = document.body.scrollHeight ;

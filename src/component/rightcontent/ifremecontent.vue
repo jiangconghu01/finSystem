@@ -1,6 +1,6 @@
 <template>
   <div class="test">
-      <iframe src="https://www.baidu.com/" frameborder="0">
+      <iframe :src="url" frameborder="0" ref="ifremecontent">
 
       </iframe>
   </div>
@@ -8,6 +8,13 @@
 
 <script>
 export default {
+    props:{
+        setdata:{
+            type:String,
+            requried:false
+        }
+
+    },
     data () {
         return {
             iframeHtml:''
@@ -20,13 +27,24 @@ export default {
         //     console.log(data);
         // })
     },
-    computed: {},
+    computed: {
+        url(){
+            const link = this.setdata;
+            // if(!!~link.indexOf('ydzcRedidrect.do') || !!~link.indexOf('gwzcRedidrect.do')){
+            //     return '';
+            // }
+            return link;
+        }
 
-    mounted() {
-        console.log('test');
     },
+    methods: {
 
-    methods: {}
+    },
+    mounted() {
+    },
+    watch:{
+
+    }
 };
 </script>
 <style lang='scss' scoped>

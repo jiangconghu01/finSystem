@@ -21,7 +21,7 @@
       class="leve1-tree"></el-tree> -->
     </div>
     <div class="right-side">
-        <component v-bind:is="currentContent" :data="url" class="right-content"></component>
+        <component v-bind:is="currentContent" :setdata="url" class="right-content"></component>
     </div>
   </div>
 </template>
@@ -39,14 +39,18 @@ export default {
     mudata:{
       type:Object,
       required:true
+    },
+    index:{
+      type:Number,
+      required:false
     }
     
   },
   data () {
     return {
         boxheight:this.height,
-        currentContent: 'Basic',
-        url:'1237',
+        currentContent: this.index === 0 ? 'Basic' : '',
+        url:'',
         defaultProps: {
           children: 'children',
           label: 'label'
@@ -67,15 +71,28 @@ export default {
         children:isLevelOne?[{label:name,children:list,link:''}]:list,
         type:isLevelOne?'levelone':'levelmore'
       };
+    },
+    defaultMu(){
+      return this.index === 0 ? 'Basic' : '';
     }
   },
   methods: {
       handleNodeClick(data) {
-        console.log(data);
-        if(data.link){
+        let url = data.link;
+        const currId = data.sysModuleCode;
+        const t = (new Date()).getTime();
+        if(!!~url.indexOf('ydzcRedidrect.do') || !!~url.indexOf('gwzcRedidrect.do')){
           this.currentContent = 'Ifreme';
+          url = `${url}?currMenuId=${currId}&_:${t}`;
+           this.url = url;
+           return;
         }
-
+        if(url){
+          console.log(url);
+          this.currentContent = 'Ifreme';
+          url = !!~url.indexOf('?') ? `/czxt/${url}&currMenuId=${currId}&_:${t}`:`/czxt/${url}?currMenuId=${currId}&_:${t}`;
+          this.url = url;
+        }
       },
       showTitle(e){
         if(e.target.className === 'el-tree-node__label' && e.target.nodeName === 'SPAN'){
@@ -92,14 +109,23 @@ export default {
 
 
   mounted() {
-    // this.$http.get('/czxt/pagesnew/sysModule.action').then(res=>{
-    //   console.log(res);
-    // });
 
     this.currentContent === 'Basic' && this.$nextTick(()=>{
-        const h = document.body.scrollHeight - document.getElementById('header').scrollHeight +'px';
-        this.$emit('setHeight', h);
+        const h = this.currentContent === 'Basic' ? (document.body.scrollHeight - document.getElementById('header').scrollHeight +'px') :
+        //(document.body.clientHeight - document.getElementById('header').clientHeight +'px');
+       '';
+        this.$emit('setHeight', {height:h});
     });
+    console.log(this.index);
+  },
+  watch:{
+    currentContent(val,oldVal){
+      this.$nextTick(()=>{
+          const h = document.body.scrollHeight - document.getElementById('header').scrollHeight +'px';
+          val !== 'Basic' ?  this.$emit('setHeight', {}) : this.$emit('setHeight', {height:h});
+      });
+        
+    }
   }
 
 }
