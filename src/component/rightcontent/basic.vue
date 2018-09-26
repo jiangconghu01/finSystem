@@ -235,6 +235,11 @@ export default {
             console.log(tab, event);
         }
     },
+    created(){
+        this.$http.get('/czxt/pagesnew/homePage.do').then(data =>{
+            console.log(data);
+        });
+    },
     computed: {},
     mounted() {
         console.log(this.setdata);
