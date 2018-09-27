@@ -223,7 +223,8 @@ export default {
 
   computed: {
         ...mapGetters([
-            'ip'
+            'ip',
+            'project'
         ])
   },
 
@@ -256,13 +257,9 @@ export default {
         message:'用户名和密码不能为空'
       });
     },
-    async getPublicKey(){
-      const data = await this.$http.get('/czxt/pages/getRSAPublicKey.do');
-      this.publicKey = JSON.parse(data).publicKey;
-    },
     async loginAction(){
       const encrypt = new JSEncrypt();
-      const resdata = await this.$http.get('/czxt/pages/getRSAPublicKey.do');
+      const resdata = await this.$http.get(this.project+'pages/getRSAPublicKey.do');
       this.publicKey = resdata.data.publicKey[0];
       encrypt.setPublicKey(this.publicKey);
       const data = {
@@ -270,8 +267,17 @@ export default {
         inPassword: encrypt.encrypt(this.userPassword),
         inVerifyCode: encrypt.encrypt('1')
       }
-     const res = await this.$http.post('/czxt/pages/logining.do', data);
-      this.$router.push({name: 'Index'});
+     const res = await this.$http.post(this.project+'pages/logining.do', data);
+     console.log(res);
+      if(~~res.data.slice(-10).indexOf('success')){
+        this.$router.push({name: 'Index'});
+       this.$message({
+          message: '才智系统欢迎您，登录成功！',
+          type: 'success'
+        });
+      }else{
+        this.$message.error('登录失败！');
+      }
     }
   }
 }

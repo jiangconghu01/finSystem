@@ -19,7 +19,7 @@
       <div class="nav" :style="contentH">
       <!-- <div class="nav"> -->
         <el-tabs type="border-card">
-        <el-tab-pane v-for="(ele,index) in mulist" :key="index" :label="ele.name">
+        <el-tab-pane v-if="~~mulist.length" v-for="(ele,index) in mulist" :key="index" :label="ele.name">
             <Content @setHeight="getHeight" :mudata="ele" :index="index"/>
         </el-tab-pane>
         </el-tabs>
@@ -30,6 +30,7 @@
 <script>
 import Content from './indexContent.vue';
 import mu from './test.js';
+import { mapGetters } from 'vuex';
 export default {
   data () {
     return {
@@ -48,48 +49,60 @@ export default {
           this.contentHeight = h;
       },
       logout(){
-          this.$http.get('/czxt/pages/logout.do').then(data =>{
+          this.$http.get(this.project+'pages/logout.do').then(data =>{
               this.$router.replace({name: 'Login'});
+              this.$message({
+                message: '您已经成功退出！',
+                type: 'success'
+             });
           });
-      }
+      },
+      async getMu(){
+          const mu = await this.$http.get(this.project+'pagesnew/sysModule.action');
+            const muData = mu.data;
+            const a = muData.map(ele => {
+            const item = {};
+            const level1 = ele.sysModuleName;
+            const childlist = ele.sysModuleList;
+            const muchildlist = [];
+            if(childlist.length > 0){
+                childlist.forEach(ele => {
+                const imu = {};
+                imu.label = ele.sysModuleName
+                imu.link = ele.sysModuleLink;
+                imu.sysModuleCode = ele.sysModuleCode;
+                imu.children = [];
+                const childlist2 = ele.sysModuleList;
+                if(childlist2.length > 0){
+                    childlist2.forEach(e => {
+                    imu.children.push({
+                        label: e.sysModuleName,
+                        link: e.sysModuleLink,
+                        sysModuleCode: e.sysModuleCode
+                    });
+                    });
+                }
+                muchildlist.push(imu);
+                });
+            }
+            return {
+                name: level1 || '',
+                children: muchildlist
+            }
+            });
+            this.mulist = a;
+        }
   },
   computed: {
+     ...mapGetters([
+            'project'
+     ]),
       contentH(){
           return this.contentHeight;
       }
   },
   created(){
-    const a = mu.map(ele => {
-      const item = {};
-      const level1 = ele.sysModuleName;
-      const childlist = ele.sysModuleList;
-      const muchildlist = [];
-      if(childlist.length > 0){
-        childlist.forEach(ele => {
-          const imu = {};
-          imu.label = ele.sysModuleName
-          imu.link = ele.sysModuleLink;
-          imu.sysModuleCode = ele.sysModuleCode;
-          imu.children = [];
-          const childlist2 = ele.sysModuleList;
-          if(childlist2.length > 0){
-            childlist2.forEach(e => {
-              imu.children.push({
-                label: e.sysModuleName,
-                link: e.sysModuleLink,
-                sysModuleCode: e.sysModuleCode
-              });
-            });
-          }
-          muchildlist.push(imu);
-        });
-      }
-      return {
-        name: level1 || '',
-        children: muchildlist
-      }
-    });
-    this.mulist = a;
+      this.getMu();
   },
   mounted() {
     //   const bodyHeight = document.body.scrollHeight ;

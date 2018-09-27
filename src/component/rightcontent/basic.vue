@@ -208,6 +208,7 @@ import zjglimg from '../../static/zjgl.png';
 import drdcimg from '../../static/drdc.png';
 import wdbbimg from '../../static/wdbb.png';
 import swglimg from '../../static/swgl.png';
+import { mapGetters } from 'vuex';
 export default {
     props:{
         setdata:{
@@ -225,6 +226,11 @@ export default {
 
         };
     },
+    computed:{
+        ...mapGetters([
+            'project'
+        ])
+    },
     components: {
         TitleText,
         TitleText2,
@@ -236,11 +242,10 @@ export default {
         }
     },
     created(){
-        this.$http.get('/czxt/pagesnew/homePage.do').then(data =>{
+        this.$http.get(this.project+'pagesnew/homePage.do').then(data =>{
             console.log(data);
         });
     },
-    computed: {},
     mounted() {
         console.log(this.setdata);
     }

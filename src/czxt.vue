@@ -7,9 +7,7 @@
 <script>
 export default {
   data () {
-    return {
-        aa:'this is index page'
-    };
+    return {}
   },
   components: {},
 

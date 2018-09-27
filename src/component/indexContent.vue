@@ -30,6 +30,7 @@
 import Basic from './rightcontent/basic.vue';
 import Basic2 from './rightcontent/basic2.vue';
 import Ifreme from './rightcontent/ifremecontent.vue';
+import { mapGetters } from 'vuex';
 export default {
   props:{
     height:{
@@ -59,6 +60,9 @@ export default {
   },
 
   computed: {
+    ...mapGetters([
+        'project'
+    ]),
     leftMu(){
       const name =this.mudata.name;
       const list = this.mudata.children;
@@ -90,7 +94,7 @@ export default {
         if(url){
           console.log(url);
           this.currentContent = 'Ifreme';
-          url = !!~url.indexOf('?') ? `/czxt/${url}&currMenuId=${currId}&_:${t}`:`/czxt/${url}?currMenuId=${currId}&_:${t}`;
+          url = !!~url.indexOf('?') ? `${this.project}${url}&currMenuId=${currId}&_:${t}`:`${this.project}${url}?currMenuId=${currId}&_:${t}`;
           this.url = url;
         }
       },
