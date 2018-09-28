@@ -3,7 +3,7 @@
       <div class="header" ref="header" id="header">
           <img src="../static/dxlogo.png" alt="">
           <img src="../static/split.png" alt="">
-          <img src="../static/czlogo.png" alt="">
+          <img src="../static/czlogo.png" alt="" @click="toIndex()">
           <div class="header-text">
               <span>欢迎你管理员</span>
               <span>|</span>
@@ -18,8 +18,8 @@
       </div>
       <div class="nav" :style="contentH">
       <!-- <div class="nav"> -->
-        <el-tabs type="border-card">
-        <el-tab-pane v-if="~~mulist.length" v-for="(ele,index) in mulist" :key="index" :label="ele.name">
+        <el-tabs type="border-card" @tab-click="handleClickTab()">
+        <el-tab-pane  v-if="~~mulist.length" v-for="(ele,index) in mulist" :key="index" :label="ele.name">
             <Content @setHeight="getHeight" :mudata="ele" :index="index"/>
         </el-tab-pane>
         </el-tabs>
@@ -30,7 +30,7 @@
 <script>
 import Content from './indexContent.vue';
 import mu from './test.js';
-import { mapGetters } from 'vuex';
+import { mapGetters,  mapMutations  } from 'vuex';
 export default {
   data () {
     return {
@@ -45,6 +45,15 @@ export default {
   },
 
   methods: {
+     ...mapMutations([
+        'setPage' // 将 `this.incrementBy(amount)` 映射为 `this.$store.commit('incrementBy', amount)`
+     ]),
+     toIndex(){
+         this.setPage('index');
+     },
+     handleClickTab(){
+        this.setPage('user');
+     },
       getHeight(h){
           this.contentHeight = h;
       },

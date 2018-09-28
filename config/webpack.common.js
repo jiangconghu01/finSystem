@@ -4,7 +4,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const isDev = process.env.NODE_ENV === 'development';
-module.exports = {
+const config = {
     // context: path.resolve(__dirname, '../src'), // webpack查找相对路径文件时候会以该路径为基础路径
     entry: {
         czxt: ['babel-polyfill', './src/index.js'],
@@ -15,8 +15,7 @@ module.exports = {
     },
     output: {
         filename: '[name].bundle.js',
-        path: path.resolve(__dirname, '../dist'),
-        // publicPath: '/'  //生产环境对应的路径前缀
+        path: path.resolve(__dirname, '../dist')
     },
     resolve: {
         extensions: [
@@ -136,3 +135,7 @@ module.exports = {
         ]
     }
 };
+if (!isDev) {
+    config.output['publicPath'] = '/czxt_war/dist/'
+}; //生产环境对应的路径前缀
+module.exports = config;
