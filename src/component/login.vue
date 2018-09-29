@@ -268,7 +268,6 @@ export default {
         inVerifyCode: encrypt.encrypt('1')
       }
      const res = await this.$http.post(this.project+'pages/logining.do', data);
-     console.log(res);
      debugger
       if(~res.data.slice(-10).indexOf('success')){
         this.$router.push({name: 'Index'});

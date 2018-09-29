@@ -118,14 +118,13 @@ export default {
 
 
   mounted() {
-
+    console.log(this.index);
     this.currentContent === 'Basic' && this.$nextTick(()=>{
         const h = this.currentContent === 'Basic' ? (document.body.scrollHeight - document.getElementById('header').scrollHeight +'px') :
         //(document.body.clientHeight - document.getElementById('header').clientHeight +'px');
        '';
         this.$emit('setHeight', {height:h});
     });
-    console.log(this.index);
   },
   watch:{
     currentContent(val,oldVal){

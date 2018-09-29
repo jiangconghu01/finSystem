@@ -7,14 +7,13 @@
 <script>
 export default {
   data () {
-    return {}
+    return {};
   },
   components: {},
 
   computed: {},
 
   mounted() {
-    console.log('czxt');
   },
 
   methods: {}

@@ -127,21 +127,17 @@ export default {
     },
     methods: {
         handleClick(tab, event) {
-            console.log(tab, event);
         },
         goDownWeb(item){
-            console.log(item);
         }
     },
     created(){
         this.$http.get(this.project+'pagesnew/homePage.do').then(data =>{
-            console.log(data.data[0]);
             const basicObj = data.data[0];
             this.basicData = basicObj;
         });
     },
     mounted() {
-        console.log(this.setdata);
     }
 
 };

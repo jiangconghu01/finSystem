@@ -5,7 +5,6 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const isDev = process.env.NODE_ENV === 'development';
 const config = {
-    // context: path.resolve(__dirname, '../src'), // webpack查找相对路径文件时候会以该路径为基础路径
     entry: {
         czxt: ['babel-polyfill', './src/index.js'],
         log: ['./src/log.js'],

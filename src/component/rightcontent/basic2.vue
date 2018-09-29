@@ -238,17 +238,13 @@ export default {
     },
     methods: {
         handleClick(tab, event) {
-            
+
         }
     },
     created(){
-        this.$http.get(this.project+'pagesnew/homePage.do').then(data =>{
-            const basicObj = data.data[0];
-            this.basicData = basicObj;
-        });
+        
     },
     mounted() {
-        console.log(this.setdata);
     }
 
 };
