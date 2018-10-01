@@ -2,55 +2,10 @@
   <div class="basic-page  clearfix">
         <div class="card common">
             <Title-text>常用功能</Title-text>
-            <div class="card-list">
+            <div class="card-list" v-for="(item,index) in basicData['COMMON_FUNCTION']" :key="index">
                 <div class="card-item">
                     <Card :url="zjgl">
                         <template slot="title">资金管理</template>
-                    </Card>
-                </div>
-                <div class="card-item">
-                    <Card :url="drdc">
-                        <template slot="title">导入导出</template>
-                    </Card>
-                </div>
-                <div class="card-item">
-                    <Card :url="wdbb">
-                        <template slot="title">我的报表</template>
-                    </Card>
-                </div>
-                <div class="card-item">
-                    <Card :url="swgl">
-                        <template slot="title">税务管理</template>
-                    </Card>
-                </div>
-                <div class="card-item">
-                    <Card :url="swgl">
-                        <template slot="title">税务管理</template>
-                    </Card>
-                </div>
-                <div class="card-item">
-                    <Card :url="swgl">
-                        <template slot="title">税务管理</template>
-                    </Card>
-                </div>
-                <div class="card-item">
-                    <Card :url="swgl">
-                        <template slot="title">税务管理</template>
-                    </Card>
-                </div>
-                <div class="card-item">
-                    <Card :url="swgl">
-                        <template slot="title">税务管理</template>
-                    </Card>
-                </div>
-                <div class="card-item">
-                    <Card :url="swgl">
-                        <template slot="title">税务管理</template>
-                    </Card>
-                </div>
-                <div class="card-item">
-                    <Card :url="swgl">
-                        <template slot="title">税务管理</template>
                     </Card>
                 </div>
             </div>
@@ -59,19 +14,12 @@
         <div class="card infor">
             <Title-text>最近业务通知</Title-text>
             <ul>
-                <li>【06-15 紧急通知】最近财务信息文字链接内容</li>
-                <li>【06-15 紧急通知】最近财务信息文字链接内容</li>
-                <li>【06-15 紧急通知】最近财务信息文dfgdfg字链接内容</li>
-                <li>【06-15 紧急通知】最近财务信息文字链接内容</li>
-                <li>【06-15 紧急通知】最近财务信息文dfgdfg字链接内容</li>
-                <li>【06-15 紧急通知】最近财务信息文字链dfgdfgdfg接内容</li>
+                <li v-for="(item,index) in basicData['BUS_Notice']" :key="index">【{{item.title}}】{{item.msg}}</li>
             </ul>
         </div>
         <div class="card wait">
             <Title-text>待办事项</Title-text>
-            <div class="bar">待处理工单<span class="num">12</span></div>               
-            <div class="bar">待处理工单<span class="num">12</span></div>               
-            <div class="bar">待处理工单<span class="num">12</span></div>               
+            <div v-for="(item,index) in basicData['TODO_SOMETHING']" :key="index" class="bar">{{item.msgTile}}<span class="num">{{item.bilId}}</span></div>                            
         </div>
         <!-- <div class="card common">
             <Title-text>常用功能</Title-text>
@@ -102,53 +50,9 @@
             <el-tabs v-model="activeName" @tab-click="handleClick">
                 <el-tab-pane label="下载中心" name="first">
                     <el-row :gutter="20">
-                        <el-col :span="8">
+                        <el-col :span="8" v-for="(item,index) in basicData['Dow_CENTER']" :key="index" @click.native="goDownWeb(item)">
                             <div class="grid-content bg-purple">
-                                <span class="content">第一季度现金指标报表</span>
-                            </div>
-                        </el-col>
-                        <el-col :span="8">
-                            <div class="grid-content bg-purple">
-                                <span class="content">第二季度现金指标报表</span>
-                            </div>
-                        </el-col>
-                        <el-col :span="8">
-                            <div class="grid-content bg-purple">
-                                <span class="content">第三季度现金指标报表</span>
-                            </div>
-                        </el-col>
-                    </el-row>
-                    <el-row :gutter="20">
-                        <el-col :span="8">
-                            <div class="grid-content bg-purple">
-                                <span class="content">第一季度现金指标报表</span>
-                            </div>
-                        </el-col>
-                        <el-col :span="8">
-                            <div class="grid-content bg-purple">
-                                <span class="content">第二季度现金指标报表</span>
-                            </div>
-                        </el-col>
-                        <el-col :span="8">
-                            <div class="grid-content bg-purple">
-                                <span class="content">第三季度现金指标报表</span>
-                            </div>
-                        </el-col>
-                    </el-row>
-                    <el-row :gutter="20">
-                        <el-col :span="8">
-                            <div class="grid-content bg-purple">
-                                <span class="content">第一季度现金指标报表</span>
-                            </div>
-                        </el-col>
-                        <el-col :span="8">
-                            <div class="grid-content bg-purple">
-                                <span class="content">第二季度现金指标报表</span>
-                            </div>
-                        </el-col>
-                        <el-col :span="8">
-                            <div class="grid-content bg-purple">
-                                <span class="content">第三季度现金指标报表</span>
+                                <span class="content">{{item.msgTitle}}</span>
                             </div>
                         </el-col>
                     </el-row>
@@ -166,14 +70,7 @@
                 <template slot="more">查看更多</template>
             </Title-text2>
             <ul>
-                <li>【06-15 紧急通知】最近财务信息文字链接内容</li>
-                <li>【06-15 紧急通知】最近财务信息文字链接内容</li>
-                <li>【06-15 紧急通知】最近财务信息文dfgdfg字链接内容</li>
-                <li>【06-15 紧急通知】最近财务信息文字链接内容</li>
-                <li>【06-15 紧急通知】最近财务信息文dfgdfg字链接内容</li>
-                <li>【06-15 紧急通知】最近财务信息文字链dfgdfgdfg接内容</li>
-                <li>【06-15 紧急通知】最近财务信息文字链dfgdfgdfg接内容</li>
-                <li>【06-15 紧急通知】最近财务信息文字链dfgdfgdfg接内容</li>
+                <li v-for="(item,index) in basicData['SYS_NOTICE']" :key="index">【{{item.msgTitle}}】{{item.msgText}}</li>
             </ul>
         </div>
         <div class="card question">
@@ -182,15 +79,7 @@
                 <template slot="more">查看更多</template>
             </Title-text2>
              <ul>
-                <li>xxxxxxxx问题解决方案文字的说明</li>
-                <li>xxxxxxxx问题解决方案文字的说明</li>
-                <li>xxxxxxxx问题解决方案文字的说明</li>
-                <li>xxxxxxxx问题解决方案文字的说明</li>
-                <li>xxxxxxxx问题解决方案文字的说明</li>
-                <li>xxxxxxxx问题解决方案文字的说明</li>
-                <li>xxxxxxxx问题解决方案文字的说明</li>
-                <li>xxxxxxxx问题解决方案文字的说明</li>
-                <li>xxxxxxxx问题解决方案文字的说明</li>
+                <li v-for="(item,index) in basicData['COMMON_PROBLEM']" :key="index">{{item.msg}}</li>
             </ul>
         </div>
         <div class="card handbook">
@@ -222,8 +111,8 @@ export default {
             drdc:drdcimg,
             wdbb:wdbbimg,
             swgl:swglimg,
-            activeName: 'first'
-
+            activeName: 'first',
+            basicData:''
         };
     },
     computed:{
@@ -238,16 +127,17 @@ export default {
     },
     methods: {
         handleClick(tab, event) {
-            console.log(tab, event);
+        },
+        goDownWeb(item){
         }
     },
     created(){
         this.$http.get(this.project+'pagesnew/homePage.do').then(data =>{
-            console.log(data);
+            const basicObj = data.data[0];
+            this.basicData = basicObj;
         });
     },
     mounted() {
-        console.log(this.setdata);
     }
 
 };
@@ -367,6 +257,7 @@ export default {
             }
             .el-col {
                 border-radius: 2px;
+                margin-top: 10px;
             }
             .bg-purple {
                 background: #F5F6FA;
@@ -375,7 +266,7 @@ export default {
                 border-radius: 2px;
                 min-height: 36px;
                 position: relative;
-                
+                cursor: pointer;
                 .content{
                     width: 100%;
                     cursor: pointer;

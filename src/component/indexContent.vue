@@ -1,7 +1,6 @@
 <template>
-  <!-- <div class="container" :style="{height:height+'px'}"> -->
   <div class="container" >
-    <div class="left-side">
+    <div class="left-side" :class="[page==='index' && 'none']">
       <p class="title">{{leftMu && leftMu.name}}</p>
       <el-tree 
       v-if="leftMu " 
@@ -20,8 +19,11 @@
       @mouseover.native="showTitle($event)"
       class="leve1-tree"></el-tree> -->
     </div>
-    <div class="right-side">
+    <div class="right-side" :class="[page==='index' && 'none']">
         <component v-bind:is="currentContent" :setdata="url" class="right-content"></component>
+    </div>
+    <div class="index-page" :class="[page==='user' && 'none']">
+      <Basic2></Basic2>
     </div>
   </div>
 </template>
@@ -30,7 +32,7 @@
 import Basic from './rightcontent/basic.vue';
 import Basic2 from './rightcontent/basic2.vue';
 import Ifreme from './rightcontent/ifremecontent.vue';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 export default {
   props:{
     height:{
@@ -61,7 +63,8 @@ export default {
 
   computed: {
     ...mapGetters([
-        'project'
+        'project',
+         'page'
     ]),
     leftMu(){
       const name =this.mudata.name;
@@ -81,6 +84,9 @@ export default {
     }
   },
   methods: {
+      ...mapMutations([
+        'setPage' 
+       ]),
       handleNodeClick(data) {
         let url = data.link;
         const currId = data.sysModuleCode;
@@ -102,7 +108,6 @@ export default {
         if(e.target.className === 'el-tree-node__label' && e.target.nodeName === 'SPAN'){
           e.target.setAttribute('title',e.target.innerText);
         }
-       // console.log(e,e.target);
       }
   },
   components: {
@@ -113,14 +118,13 @@ export default {
 
 
   mounted() {
-
+    console.log(this.index);
     this.currentContent === 'Basic' && this.$nextTick(()=>{
         const h = this.currentContent === 'Basic' ? (document.body.scrollHeight - document.getElementById('header').scrollHeight +'px') :
         //(document.body.clientHeight - document.getElementById('header').clientHeight +'px');
        '';
         this.$emit('setHeight', {height:h});
     });
-    console.log(this.index);
   },
   watch:{
     currentContent(val,oldVal){
@@ -136,6 +140,13 @@ export default {
 
 </script>
 <style lang='scss' scoped>
+    .index-page{
+      width: 100%;
+      height: 100%;
+    }
+    .none{
+      display: none;
+    }
     .container{
         height: 100%;
         background-color:#fff;

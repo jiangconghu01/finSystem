@@ -268,8 +268,8 @@ export default {
         inVerifyCode: encrypt.encrypt('1')
       }
      const res = await this.$http.post(this.project+'pages/logining.do', data);
-     console.log(res);
-      if(~~res.data.slice(-10).indexOf('success')){
+     debugger
+      if(~res.data.slice(-10).indexOf('success')){
         this.$router.push({name: 'Index'});
        this.$message({
           message: '才智系统欢迎您，登录成功！',
