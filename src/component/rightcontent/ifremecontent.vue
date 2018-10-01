@@ -8,44 +8,44 @@
 
 <script>
 export default {
-    props:{
-        setdata:{
-            type:String,
-            requried:false
-        }
-
-    },
-    data () {
-        return {
-            iframeHtml:''
-        };
-    },
-
-    components: {},
-    created(){
-        // this.$http.get('https://www.baidu.com/').then(data =>{
-        //     console.log(data);
-        // })
-    },
-    computed: {
-        url(){
-            const link = this.setdata;
-            // if(!!~link.indexOf('ydzcRedidrect.do') || !!~link.indexOf('gwzcRedidrect.do')){
-            //     return '';
-            // }
-            return link;
-        }
-
-    },
-    methods: {
-
-    },
-    mounted() {
-    },
-    watch:{
-
+  props: {
+    setdata: {
+      type: String,
+      requried: false
     }
-};
+
+  },
+  data () {
+    return {
+      iframeHtml: ''
+    }
+  },
+
+  components: {},
+  created () {
+    // this.$http.get('https://www.baidu.com/').then(data =>{
+    //     console.log(data);
+    // })
+  },
+  computed: {
+    url () {
+      const link = this.setdata
+      // if(!!~link.indexOf('ydzcRedidrect.do') || !!~link.indexOf('gwzcRedidrect.do')){
+      //     return '';
+      // }
+      return link
+    }
+
+  },
+  methods: {
+
+  },
+  mounted () {
+  },
+  watch: {
+
+  }
+}
 </script>
 <style lang='scss' scoped>
  .test{

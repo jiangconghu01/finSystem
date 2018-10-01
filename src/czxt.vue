@@ -7,18 +7,17 @@
 <script>
 export default {
   data () {
-    return {};
+    return {}
   },
   components: {},
 
   computed: {},
 
-  mounted() {
+  mounted () {
   },
 
   methods: {}
 }
-
 </script>
 <style lang='scss' scoped>
 .czxt{

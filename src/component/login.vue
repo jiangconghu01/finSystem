@@ -204,82 +204,80 @@
 </template>
 
 <script>
-import { JSEncrypt } from 'jsencrypt';
-import { mapGetters } from 'vuex';
+import { JSEncrypt } from 'jsencrypt'
+import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
-        mheight: '',
-        userCode: '',
-        userPassword: '',
-        publicKey: '',
-        verifyCode: ''
-    };
+      mheight: '',
+      userCode: '',
+      userPassword: '',
+      publicKey: '',
+      verifyCode: ''
+    }
   },
 
   components: {
-   
+
   },
 
   computed: {
-        ...mapGetters([
-            'ip',
-            'project'
-        ])
+    ...mapGetters([
+      'ip',
+      'project'
+    ])
   },
 
-  mounted() {
-    this.setLeyout();
-    let timer='';
-    window.onresize=()=>{
-      timer && clearTimeout(timer);
-      timer = setTimeout(()=>{
-        this.setLeyout();
-      },500); 
+  mounted () {
+    this.setLeyout()
+    let timer = ''
+    window.onresize = () => {
+      timer && clearTimeout(timer)
+      timer = setTimeout(() => {
+        this.setLeyout()
+      }, 500)
     }
   },
 
   methods: {
-    setLeyout(){
-     // this.mheight='';
-     // this.$nextTick(()=>{
-        let h = document.body.clientHeight;
-        let sh = document.body.scrollHeight;
-        (h <= sh) && (this.mheight = sh+'px');
-      //});
+    setLeyout () {
+      // this.mheight='';
+      // this.$nextTick(()=>{
+      let h = document.body.clientHeight
+      let sh = document.body.scrollHeight;
+      (h <= sh) && (this.mheight = sh + 'px')
+      // });
     },
-    countDown(){
+    countDown () {
       this.$message({
-        type:'warning',
+        type: 'warning',
         showClose: true,
         center: true,
-        duration: 3000,//配置为0不会自动关闭
-        message:'用户名和密码不能为空'
-      });
+        duration: 3000, // 配置为0不会自动关闭
+        message: '用户名和密码不能为空'
+      })
     },
-    async loginAction(){
-      const encrypt = new JSEncrypt();
-      const resdata = await this.$http.get(this.project+'pages/getRSAPublicKey.do');
-      this.publicKey = resdata.data.publicKey[0];
-      encrypt.setPublicKey(this.publicKey);
+    async loginAction () {
+      const encrypt = new JSEncrypt()
+      const resdata = await this.$http.get(this.project + 'pages/getRSAPublicKey.do')
+      this.publicKey = resdata.data.publicKey[0]
+      encrypt.setPublicKey(this.publicKey)
       const data = {
         inUserCode: encrypt.encrypt(this.userCode),
         inPassword: encrypt.encrypt(this.userPassword),
         inVerifyCode: encrypt.encrypt('1')
       }
-     const res = await this.$http.post(this.project+'pages/logining.do', data);
-     debugger
-      if(~res.data.slice(-10).indexOf('success')){
-        this.$router.push({name: 'Index'});
-       this.$message({
+      const res = await this.$http.post(this.project + 'pages/logining.do', data)
+      if (~res.data.slice(-10).indexOf('success')) {
+        this.$router.push({name: 'Index'})
+        this.$message({
           message: '才智系统欢迎您，登录成功！',
           type: 'success'
-        });
-      }else{
-        this.$message.error('登录失败！');
+        })
+      } else {
+        this.$message.error('登录失败！')
       }
     }
   }
 }
-
 </script>

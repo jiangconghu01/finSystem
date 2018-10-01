@@ -11,26 +11,26 @@
 
 <script>
 export default {
-    props:{
-        type: {
-            type: String,
-            default: 'bar',
-            required: false
-        },
-        size: {
-            type: String,
-            default: '16px',
-            required: false
-        },
-        height: {
-            type: String,
-            default: '50px',
-            required: false  
-        }
+  props: {
+    type: {
+      type: String,
+      default: 'bar',
+      required: false
     },
+    size: {
+      type: String,
+      default: '16px',
+      required: false
+    },
+    height: {
+      type: String,
+      default: '50px',
+      required: false
+    }
+  },
   data () {
     return {
-    };
+    }
   },
 
   methods: {},
@@ -38,10 +38,9 @@ export default {
 
   computed: {},
 
-  mounted() {}
+  mounted () {}
 
 }
-
 </script>
 <style lang='scss' scoped>
 .title{

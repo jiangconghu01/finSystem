@@ -15,15 +15,15 @@
 
 <script>
 export default {
-    props:{
-       url:{
-           type:String,
-           required:false
-       } 
-    },
+  props: {
+    url: {
+      type: String,
+      required: false
+    }
+  },
   data () {
     return {
-    };
+    }
   },
 
   methods: {},
@@ -31,10 +31,9 @@ export default {
 
   computed: {},
 
-  mounted() {}
+  mounted () {}
 
 }
-
 </script>
 <style lang='scss' scoped>
 .card{

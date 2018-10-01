@@ -13,7 +13,7 @@
 export default {
   data () {
     return {
-    };
+    }
   },
 
   methods: {},
@@ -21,10 +21,9 @@ export default {
 
   computed: {},
 
-  mounted() {}
+  mounted () {}
 
 }
-
 </script>
 <style lang='scss' scoped>
 .title{
