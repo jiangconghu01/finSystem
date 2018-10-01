@@ -9,7 +9,7 @@ axios.interceptors.request.use(function(config) {
     console.log(config);
     return config;
 }, function(error) {
-    return Promise.reject(error);
+    return Promise.reject(error); 
 });
 
 // 添加响应拦截器
