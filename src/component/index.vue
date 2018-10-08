@@ -29,100 +29,98 @@
 
 <script>
 import Content from './indexContent.vue';
-import mu from './test.js';
-import { mapGetters,  mapMutations  } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 export default {
-  data () {
-    return {
-        mulist: [],
-        contentHeight: {
-            height:'400px'
-        }
-    };
-  },
-  components: {
-      Content
-  },
+    data () {
+        return {
+            mulist: [],
+            contentHeight: {
+                height: '400px'
+            }
+        };
+    },
+    components: {
+        Content
+    },
 
-  methods: {
-     ...mapMutations([
-        'setPage' // 将 `this.incrementBy(amount)` 映射为 `this.$store.commit('incrementBy', amount)`
-     ]),
-     toIndex(){
-         this.setPage('index');
-     },
-     handleClickTab(){
-        this.setPage('user');
-     },
-      getHeight(h){
-          this.contentHeight = h;
-      },
-      logout(){
-          this.$http.get(this.project+'pages/logout.do').then(data =>{
-              this.$router.replace({name: 'Login'});
-              this.$message({
-                message: '您已经成功退出！',
-                type: 'success'
-             });
-          });
-      },
-      async getMu(){
-          const mu = await this.$http.get(this.project+'pagesnew/sysModule.action');
+    methods: {
+        ...mapMutations([
+            'setPage' // 将 `this.incrementBy(amount)` 映射为 `this.$store.commit('incrementBy', amount)`
+        ]),
+        toIndex() {
+            this.setPage('index');
+        },
+        handleClickTab() {
+            this.setPage('user');
+        },
+        getHeight(h) {
+            this.contentHeight = h;
+        },
+        logout() {
+            this.$http.get(this.project + 'pages/logout.do').then(data => {
+                this.$router.replace({ name: 'Login' });
+                this.$message({
+                    message: '您已经成功退出！',
+                    type: 'success'
+                });
+            });
+        },
+        async getMu() {
+            const mu = await this.$http.get(this.project + 'pagesnew/sysModule.action');
             const muData = mu.data;
             const a = muData.map(ele => {
-            const item = {};
-            const level1 = ele.sysModuleName;
-            const childlist = ele.sysModuleList;
-            const muchildlist = [];
-            if(childlist.length > 0){
-                childlist.forEach(ele => {
-                const imu = {};
-                imu.label = ele.sysModuleName
-                imu.link = ele.sysModuleLink;
-                imu.sysModuleCode = ele.sysModuleCode;
-                imu.children = [];
-                const childlist2 = ele.sysModuleList;
-                if(childlist2.length > 0){
-                    childlist2.forEach(e => {
-                    imu.children.push({
-                        label: e.sysModuleName,
-                        link: e.sysModuleLink,
-                        sysModuleCode: e.sysModuleCode
-                    });
+                const item = {};
+                const level1 = ele.sysModuleName;
+                const childlist = ele.sysModuleList;
+                const muchildlist = [];
+                if (childlist.length > 0) {
+                    childlist.forEach(ele => {
+                        const imu = {};
+                        imu.label = ele.sysModuleName;
+                        imu.link = ele.sysModuleLink;
+                        imu.sysModuleCode = ele.sysModuleCode;
+                        imu.children = [];
+                        const childlist2 = ele.sysModuleList;
+                        if (childlist2.length > 0) {
+                            childlist2.forEach(e => {
+                                imu.children.push({
+                                    label: e.sysModuleName,
+                                    link: e.sysModuleLink,
+                                    sysModuleCode: e.sysModuleCode
+                                });
+                            });
+                        }
+                        muchildlist.push(imu);
                     });
                 }
-                muchildlist.push(imu);
-                });
-            }
-            return {
-                name: level1 || '',
-                children: muchildlist
-            }
+                return {
+                    name: level1 || '',
+                    children: muchildlist
+                };
             });
             this.mulist = a;
         }
-  },
-  computed: {
-     ...mapGetters([
+    },
+    computed: {
+        ...mapGetters([
             'project'
-     ]),
-      contentH(){
-          return this.contentHeight;
-      }
-  },
-  created(){
-      this.getMu();
-  },
-  mounted() {
+        ]),
+        contentH() {
+            return this.contentHeight;
+        }
+    },
+    created() {
+        this.getMu();
+    },
+    mounted() {
     //   const bodyHeight = document.body.scrollHeight ;
     //   const headerH = this.$refs.header.offsetHeight;
     //   this.contentHeight = bodyHeight - headerH - 40;
     //   console.log(bodyHeight)
 
-  },
+    },
 
-}
-
+};
 </script>
 <style lang='scss' scoped>
     .index{

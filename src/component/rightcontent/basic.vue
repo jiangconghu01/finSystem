@@ -99,23 +99,23 @@ import wdbbimg from '../../static/wdbb.png';
 import swglimg from '../../static/swgl.png';
 import { mapGetters } from 'vuex';
 export default {
-    props:{
-        setdata:{
+    props: {
+        setdata: {
             type: String,
             required: false
         }
     },
     data () {
         return {
-            zjgl:zjglimg,
-            drdc:drdcimg,
-            wdbb:wdbbimg,
-            swgl:swglimg,
+            zjgl: zjglimg,
+            drdc: drdcimg,
+            wdbb: wdbbimg,
+            swgl: swglimg,
             activeName: 'first',
-            basicData:''
+            basicData: ''
         };
     },
-    computed:{
+    computed: {
         ...mapGetters([
             'project'
         ])
@@ -128,11 +128,11 @@ export default {
     methods: {
         handleClick(tab, event) {
         },
-        goDownWeb(item){
+        goDownWeb(item) {
         }
     },
-    created(){
-        this.$http.get(this.project+'pagesnew/homePage.do').then(data =>{
+    created() {
+        this.$http.get(this.project + 'pagesnew/homePage.do').then(data => {
             const basicObj = data.data[0];
             this.basicData = basicObj;
         });

@@ -250,7 +250,7 @@ export default {
 };
 </script>
 <style lang='scss' scoped>
-@import '../../css/common.scss';
+@import '../../css/common.scss';cd
 .basic-page{
     background-color: #F5F5F5;
     border-left: 1px solid #EAEAEA;

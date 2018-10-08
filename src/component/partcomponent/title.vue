@@ -11,7 +11,7 @@
 
 <script>
 export default {
-    props:{
+    props: {
         type: {
             type: String,
             default: 'bar',
@@ -25,23 +25,24 @@ export default {
         height: {
             type: String,
             default: '50px',
-            required: false  
+            required: false
         }
     },
-  data () {
-    return {
-    };
-  },
+    data () {
+        return {
+        };
+    },
 
-  methods: {},
-  components: {},
+    methods: {},
+    components: {},
 
-  computed: {},
+    computed: {
 
-  mounted() {}
+    },
 
-}
+    mounted() {}
 
+};
 </script>
 <style lang='scss' scoped>
 .title{
