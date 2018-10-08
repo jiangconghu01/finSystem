@@ -201,53 +201,53 @@
 </template>
 
 <script>
-import TitleText from '../partcomponent/title.vue';
-import TitleText2 from '../partcomponent/titletext.vue';
-import Card from '../partcomponent/card.vue';
-import zjglimg from '../../static/zjgl.png';
-import drdcimg from '../../static/drdc.png';
-import wdbbimg from '../../static/wdbb.png';
-import swglimg from '../../static/swgl.png';
-import { mapGetters } from 'vuex';
+import TitleText from '../partcomponent/title.vue'
+import TitleText2 from '../partcomponent/titletext.vue'
+import Card from '../partcomponent/card.vue'
+import zjglimg from '../../static/zjgl.png'
+import drdcimg from '../../static/drdc.png'
+import wdbbimg from '../../static/wdbb.png'
+import swglimg from '../../static/swgl.png'
+import { mapGetters } from 'vuex'
 export default {
-    props:{
-        setdata:{
-            type: String,
-            required: false
-        }
-    },
-    data () {
-        return {
-            zjgl:zjglimg,
-            drdc:drdcimg,
-            wdbb:wdbbimg,
-            swgl:swglimg,
-            activeName: 'first',
-            basicData:''
-        };
-    },
-    computed:{
-        ...mapGetters([
-            'project'
-        ])
-    },
-    components: {
-        TitleText,
-        TitleText2,
-        Card
-    },
-    methods: {
-        handleClick(tab, event) {
-
-        }
-    },
-    created(){
-        
-    },
-    mounted() {
+  props: {
+    setdata: {
+      type: String,
+      required: false
     }
+  },
+  data () {
+    return {
+      zjgl: zjglimg,
+      drdc: drdcimg,
+      wdbb: wdbbimg,
+      swgl: swglimg,
+      activeName: 'first',
+      basicData: ''
+    }
+  },
+  computed: {
+    ...mapGetters([
+      'project'
+    ])
+  },
+  components: {
+    TitleText,
+    TitleText2,
+    Card
+  },
+  methods: {
+    handleClick (tab, event) {
 
-};
+    }
+  },
+  created () {
+
+  },
+  mounted () {
+  }
+
+}
 </script>
 <style lang='scss' scoped>
 @import '../../css/common.scss';cd
