@@ -8,15 +8,15 @@
               <span>欢迎你管理员</span>
               <span>|</span>
               <span>当前在线</span>
-              <span class="number">23423</span>
+              <span class="number">xxx</span>
               <span>人</span>
               <span>|</span>
-              <span class="action mod-password">修改密码</span>
+              <span class="action mod-password" @click="modPassword">修改密码</span>
               <span>|</span>
               <span class="action exit" @click="logout()">退出</span>
           </div>
       </div>
-      <div class="nav" :style="contentH">
+      <div class="nav" :style="contentH" id="nav-box">
       <!-- <div class="nav"> -->
         <el-tabs type="border-card" @tab-click="handleClickTab()">
         <el-tab-pane  v-if="~~mulist.length" v-for="(ele,index) in mulist" :key="index" :label="ele.name">
@@ -65,39 +65,75 @@ export default {
         })
       })
     },
+    modPassword () {
+      console.log(2323)
+    },
+    loadingIframe (type) {
+      if (type === 'loading') {
+        let load = this.$loading({
+          lock: true,
+          text: 'Loading',
+          fullscreen: false,
+          // spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.3)'
+          // target: document.querySelector('#nav-box')
+        })
+        this.loading = load
+      } else {
+        this.loading && this.loading.close()
+      }
+    },
     async getMu () {
-      const mu = await this.$http.get(this.project + 'pagesnew/sysModule.action')
-      const muData = mu.data
-      const a = muData.map(ele => {
-        const level1 = ele.sysModuleName
-        const childlist = ele.sysModuleList
-        const muchildlist = []
-        if (childlist.length > 0) {
-          childlist.forEach(ele => {
-            const imu = {}
-            imu.label = ele.sysModuleName
-            imu.link = ele.sysModuleLink
-            imu.sysModuleCode = ele.sysModuleCode
-            imu.children = []
-            const childlist2 = ele.sysModuleList
-            if (childlist2.length > 0) {
-              childlist2.forEach(e => {
-                imu.children.push({
-                  label: e.sysModuleName,
-                  link: e.sysModuleLink,
-                  sysModuleCode: e.sysModuleCode
+      this.loadingIframe('loading')
+      try {
+        const mu = await this.$http.get(this.project + 'pagesnew/sysModule.action')
+        const muData = mu.data
+        const a = muData.map(ele => {
+          const level1 = ele.sysModuleName
+          const childlist = ele.sysModuleList
+          const muchildlist = []
+          if (childlist.length > 0) {
+            childlist.forEach(ele => {
+              const imu = {}
+              imu.label = ele.sysModuleName
+              imu.link = ele.sysModuleLink
+              imu.sysModuleCode = ele.sysModuleCode
+              imu.children = []
+              const childlist2 = ele.sysModuleList
+              if (childlist2.length > 0) {
+                childlist2.forEach(e => {
+                  imu.children.push({
+                    label: e.sysModuleName,
+                    link: e.sysModuleLink,
+                    sysModuleCode: e.sysModuleCode
+                  })
                 })
-              })
-            }
-            muchildlist.push(imu)
+              }
+              muchildlist.push(imu)
+            })
+          }
+          return {
+            name: level1 || '',
+            children: muchildlist
+          }
+        })
+        this.mulist = a
+        this.loadingIframe('loaded')
+      } catch (error) {
+        this.loadingIframe('loaded')
+        this.$confirm('主页数据加载或者解析失败，是否返回登陆页面？', '错误', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'error'
+        }).then(() => {
+          this.$router.replace({ name: 'Login' })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '请尝试刷新页面！'
           })
-        }
-        return {
-          name: level1 || '',
-          children: muchildlist
-        }
-      })
-      this.mulist = a
+        })
+      }
     }
   },
   computed: {

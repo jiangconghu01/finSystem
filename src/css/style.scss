@@ -124,3 +124,13 @@
         height: 1px;
     }
 }
+
+//加载按钮样式
+.el-loading-spinner .el-loading-text{
+    color: #fff;
+    font-size: 18px;
+}
+.el-loading-spinner .path{
+    stroke-width: 4;
+    stroke: #fff;
+}

@@ -1,6 +1,6 @@
 <template>
   <div class="test">
-      <iframe :src="url" frameborder="0" ref="ifremecontent">
+      <iframe @load="loadedIframe()"    :src="url" frameborder="0" ref="ifremecontent">
 
       </iframe>
   </div>
@@ -17,15 +17,14 @@ export default {
   },
   data () {
     return {
-      iframeHtml: ''
+      iframeHtml: '',
+      loading: ''
     }
   },
 
   components: {},
   created () {
-    // this.$http.get('https://www.baidu.com/').then(data =>{
-    //     console.log(data);
-    // })
+
   },
   computed: {
     url () {
@@ -38,12 +37,18 @@ export default {
 
   },
   methods: {
+    loadedIframe (data) {
+      this.$emit('loadingAnimation', 'loaded')
+    }
 
   },
   mounted () {
+    this.$emit('loadingAnimation', 'loading')
   },
   watch: {
-
+    url () {
+      this.$emit('loadingAnimation', 'loading')
+    }
   }
 }
 </script>

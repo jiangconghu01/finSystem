@@ -19,8 +19,8 @@
       @mouseover.native="showTitle($event)"
       class="leve1-tree"></el-tree> -->
     </div>
-    <div class="right-side" :class="[page==='index' && 'none']">
-        <component v-bind:is="currentContent" :setdata="url" class="right-content"></component>
+    <div class="right-side" :class="[page==='index' && 'none', 'iframe-content-'+index]">
+        <component v-bind:is="currentContent" :setdata="url" @loadingAnimation="loadingIframe" class="right-content"></component>
     </div>
     <div class="index-page" :class="[page==='user' && 'none']">
       <Basic2></Basic2>
@@ -52,6 +52,7 @@ export default {
   data () {
     return {
       boxheight: this.height,
+      loading: '',
       currentContent: this.index === 0 ? 'Basic' : '',
       url: '',
       defaultProps: {
@@ -98,7 +99,6 @@ export default {
         return
       }
       if (url) {
-        console.log(url)
         this.currentContent = 'Ifreme'
         url = ~url.indexOf('?') ? `${this.project}${url}&currMenuId=${currId}&_:${t}` : `${this.project}${url}?currMenuId=${currId}&_:${t}`
         this.url = url
@@ -107,6 +107,22 @@ export default {
     showTitle (e) {
       if (e.target.className === 'el-tree-node__label' && e.target.nodeName === 'SPAN') {
         e.target.setAttribute('title', e.target.innerText)
+      }
+    },
+    loadingIframe (type) {
+      const index = this.index
+      if (type === 'loading') {
+        let load = this.$loading({
+          lock: true,
+          text: 'Loading',
+          fullscreen: false,
+          // spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.3)',
+          target: document.querySelector('.iframe-content-' + index)
+        })
+        this.loading = load
+      } else {
+        this.loading && this.loading.close()
       }
     }
   },
@@ -117,7 +133,6 @@ export default {
   },
 
   mounted () {
-    console.log(this.index)
     this.currentContent === 'Basic' && this.$nextTick(() => {
       const h = this.currentContent === 'Basic' ? (document.body.scrollHeight - document.getElementById('header').scrollHeight + 'px')
         // (document.body.clientHeight - document.getElementById('header').clientHeight +'px');

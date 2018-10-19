@@ -8,7 +8,7 @@ module.exports = merge(common, {
   plugins: [
     // new UglifyJSPlugin(),
     new MiniCssExtractPlugin({
-      filename: '[contenthash][name].style.css'
+      filename: '[hash:5][name].style.css'
     }),
     new OptimizeCSSAssetsPlugin({
       assetNameRegExp: /\.style\.css$/g,

@@ -2,24 +2,31 @@
   <div class="basic-page  clearfix">
         <div class="card common">
             <Title-text>常用功能</Title-text>
-            <div class="card-list" v-for="(item,index) in basicData['COMMON_FUNCTION']" :key="index">
-                <div class="card-item">
-                    <Card :url="zjgl">
-                        <template slot="title">资金管理</template>
-                    </Card>
+            <div  v-if="basicData">
+                <div class="card-list"  v-for="(item,index) in basicData['COMMON_FUNCTION']" :key="index">
+                    <div class="card-item">
+                        <Card :url="zjgl">
+                            <template slot="title">资金管理</template>
+                        </Card>
+                    </div>
                 </div>
             </div>
         </div>
       <div class="left-box">
         <div class="card infor">
             <Title-text>最近业务通知</Title-text>
-            <ul>
-                <li v-for="(item,index) in basicData['BUS_Notice']" :key="index">【{{item.title}}】{{item.msg}}</li>
+            <ul v-if="basicData">
+                <li 
+                v-for="(item,index) in basicData['BUS_Notice']" 
+                :key="index">【{{item.title}}】{{item.msg}}</li>
             </ul>
         </div>
         <div class="card wait">
             <Title-text>待办事项</Title-text>
-            <div v-for="(item,index) in basicData['TODO_SOMETHING']" :key="index" class="bar">{{item.msgTile}}<span class="num">{{item.bilId}}</span></div>                            
+            <div  v-if="basicData">
+                <div v-for="(item,index) in basicData['TODO_SOMETHING']" :key="index" class="bar">{{item.msgTile}}<span class="num">{{item.bilId}}</span></div>                            
+            </div>
+            
         </div>
         <!-- <div class="card common">
             <Title-text>常用功能</Title-text>
@@ -49,7 +56,7 @@
         <div class="card download-web" id="basic-download-web">
             <el-tabs v-model="activeName" @tab-click="handleClick">
                 <el-tab-pane label="下载中心" name="first">
-                    <el-row :gutter="20">
+                    <el-row :gutter="20"  v-if="basicData">
                         <el-col :span="8" v-for="(item,index) in basicData['Dow_CENTER']" :key="index" @click.native="goDownWeb(item)">
                             <div class="grid-content bg-purple">
                                 <span class="content">{{item.msgTitle}}</span>
@@ -69,8 +76,8 @@
                 <template slot="title">系统公告</template>
                 <template slot="more">查看更多</template>
             </Title-text2>
-            <ul>
-                <li v-for="(item,index) in basicData['SYS_NOTICE']" :key="index">【{{item.msgTitle}}】{{item.msgText}}</li>
+            <ul v-if="basicData" >
+                <li  v-for="(item,index) in basicData['SYS_NOTICE']" :key="index">【{{item.msgTitle}}】{{item.msgText}}</li>
             </ul>
         </div>
         <div class="card question">
@@ -78,7 +85,7 @@
                 <template slot="title">常见问题</template>
                 <template slot="more">查看更多</template>
             </Title-text2>
-             <ul>
+             <ul  v-if="basicData">
                 <li v-for="(item,index) in basicData['COMMON_PROBLEM']" :key="index">{{item.msg}}</li>
             </ul>
         </div>
@@ -134,6 +141,7 @@ export default {
   created () {
     this.$http.get(this.project + 'pagesnew/homePage.do').then(data => {
       const basicObj = data.data[0]
+      console.log(basicObj)
       this.basicData = basicObj
     })
   },

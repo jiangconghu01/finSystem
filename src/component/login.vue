@@ -162,7 +162,7 @@
     </div>
     <div class="login-form">
       <ul class="input-box">
-        <li><p>才智系统登录</p></li>
+        <li><p>财智系统登录</p></li>
         <li>
         <input type="text" 
         placeholder="请输入手机号码/MSS账号/EIP账号"
@@ -175,8 +175,8 @@
           placeholder="请输入密码">
         </li>
         <li>
-          <input class="verify-code" type="text" placeholder="请输入验证码">
-          <input class="verify-code-text" type="button" value="获取验证码" @click="countDown()">
+          <input class="verify-code" v-model="verifyCode" type="text" placeholder="请输入验证码">
+          <input class="verify-code-text" type="button" :value="verifyText" @click="countDown()">
         </li>
         <li><button class="login-action" @click="loginAction()">登录</button></li>
         <li><font size="2">忘记密码？</font></li>
@@ -201,8 +201,8 @@
       <font size="5">金晓晖&nbsp;&nbsp;摄</font>
     </div>
   </div>
+ 
 </template>
-
 <script>
 import { JSEncrypt } from 'jsencrypt'
 import { mapGetters } from 'vuex'
@@ -213,7 +213,10 @@ export default {
       userCode: '',
       userPassword: '',
       publicKey: '',
-      verifyCode: ''
+      verifyCode: '',
+      status: 'empty',
+      count: 60,
+      timer: ''
     }
   },
 
@@ -225,9 +228,14 @@ export default {
     ...mapGetters([
       'ip',
       'project'
-    ])
+    ]),
+    verifyText () {
+      return this.status !== 'count' ? '获取验证码' : this.count + 's'
+    }
   },
-
+  created () {
+    this.getPublickey()
+  },
   mounted () {
     this.setLeyout()
     let timer = ''
@@ -240,42 +248,93 @@ export default {
   },
 
   methods: {
+    async getPublickey () {
+      const resdata = await this.$http.get(this.project + 'pages/getRSAPublicKey.do')
+      this.publicKey = resdata.data.publicKey[0]
+      return resdata.data.publicKey[0]
+    },
     setLeyout () {
-      // this.mheight='';
       // this.$nextTick(()=>{
       let h = document.body.clientHeight
       let sh = document.body.scrollHeight;
       (h <= sh) && (this.mheight = sh + 'px')
       // });
     },
-    countDown () {
-      this.$message({
-        type: 'warning',
-        showClose: true,
-        center: true,
-        duration: 3000, // 配置为0不会自动关闭
-        message: '用户名和密码不能为空'
-      })
+
+    async countDown () {
+      if (this.count > 1 && this.count < 60) return
+      if (!this.userCode || !this.userPassword) {
+        this.$message({
+          type: 'warning',
+          showClose: true,
+          center: true,
+          duration: 2500, // 配置为0不会自动关闭
+          message: '用户名和密码是必填项目'
+        })
+      } else {
+        this.status = 'count'
+        this.timer = setInterval(() => {
+          if (this.count < 1) {
+            clearInterval(this.timer)
+            this.status = 'empty'
+            this.count = 60
+          }
+          this.count -= 1
+        }, 1000)
+        const resdata = await this.$http.get(this.project + 'pages/getRSAPublicKey.do')
+        this.publicKey = resdata.data.publicKey[0]
+        const encrypt = new JSEncrypt()
+        encrypt.setPublicKey(this.publicKey)
+        const user = encrypt.encrypt(this.userCode)
+        const pass = encrypt.encrypt(this.userPassword)
+        const data = {
+          inUserCode: user,
+          inPassword: pass
+        }
+        const code = await this.$http.post(this.project + 'pages/getCode.do', data)
+        code.data.status[0] == '1' && this.$message.error(code.data.msg[0])
+      }
     },
     async loginAction () {
+      if (!this.userCode || !this.userPassword || !this.verifyCode) {
+        this.$message({
+          type: 'error',
+          showClose: true,
+          center: true,
+          duration: 2500,
+          message: '用户名、密码和验证码为必填项'
+        })
+        return
+      }
+      this.timer && clearInterval(this.timer)
       const encrypt = new JSEncrypt()
-      const resdata = await this.$http.get(this.project + 'pages/getRSAPublicKey.do')
-      this.publicKey = resdata.data.publicKey[0]
       encrypt.setPublicKey(this.publicKey)
       const data = {
         inUserCode: encrypt.encrypt(this.userCode),
         inPassword: encrypt.encrypt(this.userPassword),
-        inVerifyCode: encrypt.encrypt('1')
+        inVerifyCode: encrypt.encrypt(this.verifyCode)
       }
       const res = await this.$http.post(this.project + 'pages/logining.do', data)
-      if (~res.data.slice(-10).indexOf('success')) {
+      if (~res.data.slice(-50).indexOf('success')) {
         this.$router.push({ name: 'Index' })
         this.$message({
-          message: '才智系统欢迎您，登录成功！',
+          message: '登录成功，财智系统欢迎您！',
           type: 'success'
         })
       } else {
-        this.$message.error('登录失败！')
+        // this.$message.error('登录失败！')
+        // this.$alert('<iframe>' + res.data + '</iframe>', 'HTML 片段', {
+        //   dangerouslyUseHTMLString: true
+        // })
+        const a = document.createElement('div')
+        a.innerHTML = res.data
+        const targetVal = a.querySelector('#divErrorMessage')
+        targetVal && this.$message({
+          type: 'error',
+          dangerouslyUseHTMLString: true,
+          message: targetVal.innerHTML
+        })
+        !targetVal && this.$message.error('登录失败！')
       }
     }
   }

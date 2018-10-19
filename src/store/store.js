@@ -2,8 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 Vue.use(Vuex)
 const state = {
-  ip: 'http://134.98.100.73:9090',
-  project: '/czxt_war/',
+  ip: '',
+  project: '/czxt/',
   page: 'user'
 }
 const getters = {

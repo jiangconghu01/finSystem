@@ -9,15 +9,16 @@ module.exports = merge(common, {
     index: 'czxt.html',
     compress: true,
     hot: true,
-    host: '0.0.0.0',
+    host: 'localhost',
     // port: 9000,
-    port: 7001,
+    port: 8090,
     proxy: {
-
-      '/czxt_war/*': {
+      '/czxt/*': {
+        target: 'http://localhost:8079',
+        // target: 'http://134.98.100.73:9090',
         // target: 'http://134.96.245.118:7001',
-        target: 'http://134.96.188.185:9000',
-        // changeOrigin: true,
+        // target: 'http://134.96.188.185:9000',
+        changeOrigin: true,
         secure: false
         // auth: 'admin': '1q2w3e4r'
       }

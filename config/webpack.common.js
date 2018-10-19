@@ -7,10 +7,10 @@ const isDev = process.env.NODE_ENV === 'development'
 const config = {
   entry: {
     czxt: ['babel-polyfill', './src/index.js'],
-    log: ['./src/log.js'],
-    echarts: 'echarts',
-    vue: 'vue',
-    axios: 'axios'
+    log: ['./src/log.js']
+    // echarts: 'echarts',
+    // vue: 'vue',
+    // axios: 'axios'
   },
   output: {
     filename: '[name].bundle.js',
@@ -135,6 +135,6 @@ const config = {
   }
 }
 if (!isDev) {
-  config.output['publicPath'] = '/czxt_war/dist/'
+  config.output['publicPath'] = '/czxt/dist/'
 }; // 生产环境对应的路径前缀
 module.exports = config
