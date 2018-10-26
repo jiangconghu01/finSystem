@@ -75,7 +75,7 @@ export default {
           text: 'Loading',
           fullscreen: false,
           // spinner: 'el-icon-loading',
-          background: 'rgba(0, 0, 0, 0.3)'
+          background: 'rgba(0, 0, 0, 0.5)'
           // target: document.querySelector('#nav-box')
         })
         this.loading = load

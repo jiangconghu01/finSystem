@@ -164,13 +164,13 @@
       <ul class="input-box">
         <li><p>财智系统登录</p></li>
         <li>
-        <input type="text" 
+        <input type="text" autocomplete="on" 
         placeholder="请输入手机号码/MSS账号/EIP账号"
         v-model="userCode"
         >
         </li>
         <li>
-          <input type="password" 
+          <input type="password" autocomplete="on" 
           v-model="userPassword"
           placeholder="请输入密码">
         </li>
@@ -262,6 +262,7 @@ export default {
     },
 
     async countDown () {
+      console.log(this.count)
       if (this.count > 1 && this.count < 60) return
       if (!this.userCode || !this.userPassword) {
         this.$message({
