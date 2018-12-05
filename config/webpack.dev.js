@@ -10,8 +10,8 @@ module.exports = merge(common, {
     compress: true,
     hot: true,
     host: 'localhost',
-    // port: 9000,
-    port: 8090,
+    port: 9000,
+    // port: 8090,
     proxy: {
       '/czxt/*': {
         // target: 'http://localhost:8079',
