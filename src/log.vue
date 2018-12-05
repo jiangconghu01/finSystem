@@ -1,6 +1,7 @@
 <template>
   <div class="czxt">
     <div class="test">{{aa}}</div>
+     <span class="card"><img src="./static/wzz.png" alt=""></span>
   </div>
 </template>
 
