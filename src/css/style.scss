@@ -1,0 +1,136 @@
+/* 集中修改element组件库的默认样式 */
+
+//导航条
+.nav {
+    .el-tabs--border-card {
+        box-shadow: none;
+        border-bottom: none;
+        background-color: #F7F7F7;
+        height: 100%;
+    }
+    .el-tabs__nav-wrap.is-scrollable {
+        padding: 0 30px 0 20px;
+    }
+    .el-tabs--border-card>.el-tabs__header {
+        background: url('../static/navbg.png') no-repeat;
+        background-size: cover;
+    }
+    .el-tabs--border-card>.el-tabs__header .el-tabs__item {
+        color: #fff;
+    }
+    .el-tabs--border-card>.el-tabs__header .el-tabs__item.is-active {
+        background-color: #163775;
+        border-right-color: #004DA1;
+        border-left-color: #004DA1;
+        //color: #fff;
+        height: 39px;
+    }
+    .el-tabs__nav-next,
+    .el-tabs__nav-prev {
+        color: #fff;
+    }
+    .el-tabs__nav-next {
+        right: 10px;
+    }
+    .el-tabs__nav-prev {
+        left: 5px;
+    }
+    .el-tabs__nav.is-top {
+        &>.el-tabs__item:nth-child(1) {
+            padding-left: 30px;
+        }
+        &>.el-tabs__item:last-child {
+            padding-right: 30px;
+        }
+    }
+    .el-tabs--border-card>.el-tabs__content {
+        padding: 0px;
+        height: calc(100% - 40px);
+        overflow: visible;
+        &>div {
+            height: 100%;
+        }
+    }
+    //左树形结构
+    .left-side {
+        .el-tree {
+            background-color: #F7F7F7;
+        }
+        .is-current {
+            color: #409EFF;
+        }
+        .el-tree-node__label {
+            width: 100%;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+        .el-icon-caret-right:before {
+            background: url('../static/dirblueoff.png') no-repeat;
+            background-size: cover;
+            width: 16px;
+            height: 13px;
+            display: inline-block;
+            content: '';
+        }
+        .el-tree-node__expand-icon.expanded {
+            transform: none;
+            &::before {
+                background: url('../static/dirblueon.png') no-repeat;
+                background-size: cover;
+            }
+        }
+        .el-tree-node__children {
+            .el-icon-caret-right.is-leaf:before {
+                background: url('../static/fileblue.png') no-repeat;
+                background-size: cover;
+                width: 14px;
+                height: 18px;
+                display: inline-block;
+                content: '';
+            }
+            .is-current .el-tree-node__expand-icon {
+                transform: none;
+                &.is-leaf::before {
+                    background: url('../static/filebluefocus.png') no-repeat;
+                    background-size: cover;
+                }
+            }
+        }
+        .leve1-tree {
+            .el-tree-node__content {
+                display: none;
+            }
+            .el-tree-node__children {
+                .el-tree-node__content {
+                    display: block;
+                }
+            }
+        }
+    }
+}
+
+//首页下载中心和常用网站
+#basic-download-web {
+    .el-tabs__item {
+        color: #7F7F7F;
+        &.is-active {
+            color: #409EFF;
+        }
+        &:hover {
+            color: #409EFF;
+        }
+    }
+    .el-tabs__nav-wrap::after {
+        height: 1px;
+    }
+}
+
+//加载按钮样式
+.el-loading-spinner .el-loading-text{
+    color: #fff;
+    font-size: 18px;
+}
+.el-loading-spinner .path{
+    stroke-width: 4;
+    stroke: #fff;
+}
