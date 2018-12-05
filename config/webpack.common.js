@@ -4,6 +4,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const isDev = process.env.NODE_ENV === 'development'
+console.log(process.env)
 const config = {
   entry: {
     czxt: ['babel-polyfill', './src/index.js'],
@@ -121,15 +122,23 @@ const config = {
     },
     {
       test: /\.(png|svg|jpg|gif)$/,
-      use: [
-        'file-loader'
-      ]
+      use: [{
+        loader: 'file-loader',
+        options: {
+          limit: 1024,
+          name: 'resources/[name].[hash:8].[ext]'
+        }
+      }]
     },
     {
       test: /\.(woff|woff2|eot|ttf|otf)$/,
-      use: [
-        'file-loader'
-      ]
+      use: [{
+        loader: 'file-loader',
+        options: {
+          limit: 1024,
+          name: 'resources/[name].[hash:8].[ext]'
+        }
+      }]
     }
     ]
   }
