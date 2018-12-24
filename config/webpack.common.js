@@ -4,7 +4,6 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const isDev = process.env.NODE_ENV === 'development'
-console.log(process.env)
 const config = {
   entry: {
     czxt: ['babel-polyfill', './src/index.js'],
@@ -14,7 +13,7 @@ const config = {
     // axios: 'axios'
   },
   output: {
-    filename: '[name].bundle.js',
+    filename: isDev ? 'js/[name].bundle.js' : 'js/[chunkhash:8].[name].bundle.js',
     path: path.resolve(__dirname, '../dist')
   },
   resolve: {
@@ -26,7 +25,32 @@ const config = {
     }
   },
   optimization: {
+    runtimeChunk: {
+      'name': 'manifest'
+    },
+    // splitChunks: {
+    //   cacheGroups: {
+    //     default: false,
+    //     vendors: false,
+    //     vendor: {
+    //       test: /[\\/]node_modules[\\/]/,
+    //       chunks: 'initial',
+    //       enforce: true,
+    //       priority: 10,
+    //       name: 'vendor'
+    //     },
+    //     common: {
+    //       chunks: 'all',
+    //       minChunks: 2,
+    //       name: 'common',
+    //       enforce: true,
+    //       priority: 5
+    //     }
+    //   }
+    // }
+
     splitChunks: {
+      maxInitialRequests: 8,
       cacheGroups: {
         echarts: {
           chunks: 'all',
@@ -45,6 +69,12 @@ const config = {
           test: /[\\/]node_modules[\\/]axios[\\/]/,
           name: 'axios',
           enforce: true
+        },
+        element: {
+          chunks: 'all',
+          test: /[\\/]node_modules[\\/]element-ui[\\/]/,
+          name: 'element-ui',
+          enforce: true
         }
       }
     }
@@ -56,8 +86,8 @@ const config = {
       title: 'index',
       filename: 'czxt.html',
       template: 'template/index.html',
-      chunk: ['czxt', 'echarts', 'vue', 'axios'],
-      excludeChunks: ['log'],
+      chunks: ['czxt', 'manifest', 'echarts', 'vue', 'axios', 'element-ui'],
+      // excludeChunks: ['log'],
       minify: {
         collapseWhitespace: false
       },
@@ -67,8 +97,8 @@ const config = {
       title: 'log',
       filename: 'log.html',
       template: 'template/log.html',
-      chunk: ['log', 'vue'],
-      excludeChunks: ['czxt', 'axios', 'echarts'],
+      chunks: ['log', 'manifest', 'vue'],
+      // excludeChunks: ['czxt', 'axios', 'echarts'],
       minify: {
         collapseWhitespace: false
       },
@@ -99,13 +129,25 @@ const config = {
 
     {
       test: /\.scss$/,
+      include: path.resolve(__dirname, '../src/test'),
+      use: [isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
+        {
+          loader: 'css-loader',
+          options: {
+            modules: true,
+            localIdentName: '[name]-[local]-[hash:base64:8]'
+          }
+        },
+        'postcss-loader',
+        'sass-loader'
+      ]
+    },
+    {
+      test: /\.scss$/,
+      exclude: path.resolve(__dirname, '../src/test'),
       use: [isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
         {
           loader: 'css-loader'
-          // options: {
-          //     modules: true,
-          //     localIdentName: '[name]-[local]-[hash:base64:8]'
-          // }
         },
         'postcss-loader',
         'sass-loader'
@@ -121,12 +163,36 @@ const config = {
       // exclude: /node_modules/
     },
     {
-      test: /\.(png|svg|jpg|gif)$/,
+      test: /\.(png|svg|jpg|jpeg|gif)$/,
       use: [{
-        loader: 'file-loader',
+        loader: 'url-loader',
         options: {
-          limit: 1024,
+          limit: 1024 * 8, // 8k一下的图片转为bs64编码
           name: 'resources/[name].[hash:8].[ext]'
+        }
+      },
+      {
+        loader: 'image-webpack-loader',
+        options: {
+          mozjpeg: {
+            progressive: true,
+            quality: 65
+          },
+          // optipng.enabled: false will disable optipng
+          optipng: {
+            enabled: false
+          },
+          pngquant: {
+            quality: '65-90',
+            speed: 4
+          },
+          gifsicle: {
+            interlaced: false
+          },
+          // the webp option will enable WEBP
+          webp: {
+            quality: 75
+          }
         }
       }]
     },
