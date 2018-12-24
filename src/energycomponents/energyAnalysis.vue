@@ -154,7 +154,7 @@ function getCurrent (path) {
      width: 100%;
     height: 100%;
     position: absolute;
-    background: url('./static/bj.png') no-repeat;
+    background: url('../static/bj.png') no-repeat;
     //background: url('./static/bg.jpg') no-repeat;
     background-size: cover;
     //transform: rotateX(180deg);

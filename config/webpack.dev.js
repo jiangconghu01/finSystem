@@ -16,7 +16,6 @@ module.exports = merge(common, {
       '/czxt/*': {
         // target: 'http://localhost:8079',
         target: 'http://134.96.245.120:9000',
-        // target: 'http://134.98.100.73:9090',
         // target: 'http://134.96.245.118:7001',
         // target: 'http://134.96.188.185:9000',
         changeOrigin: true,

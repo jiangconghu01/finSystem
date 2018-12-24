@@ -79,7 +79,7 @@ const config = {
         iview: {
           chunks: 'all',
           test: /[\\/]node_modules[\\/]iview[\\/]/,
-          name: 'element-ui',
+          name: 'iview',
           enforce: true
         }
       }

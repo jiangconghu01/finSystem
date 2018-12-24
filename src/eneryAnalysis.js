@@ -6,11 +6,11 @@ import qs from 'qs'
 import axios from 'axios'
 import energyAnalysis from './energycomponents/energyAnalysis.vue'
 // import VueBus from './bus/vue-bus.js';
-import store from './bus/store.js'
+import store from './store/energystore.js'
 import iView from 'iview'
 import 'iview/dist/styles/iview.css'
 import './css/energystyle.css'
-import http from './ajax.js'
+import http from './util/ajax.js'
 import './css/energyanalysis.scss'
 // Vue.use(VueBus);
 // axios.defaults.headers.post['Content-type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
