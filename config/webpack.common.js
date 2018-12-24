@@ -48,7 +48,6 @@ const config = {
     //     }
     //   }
     // }
-
     splitChunks: {
       maxInitialRequests: 8,
       cacheGroups: {
@@ -87,13 +86,14 @@ const config = {
   },
   plugins: [
     new VueLoaderPlugin(),
-    new CleanWebpackPlugin(['../dist']),
+    new CleanWebpackPlugin(['dist'], {
+      root: path.resolve(__dirname, '../')
+    }),
     new HtmlWebpackPlugin({
       title: 'index',
       filename: 'czxt.html',
       template: 'template/index.html',
       chunks: ['czxt', 'manifest', 'echarts', 'vue', 'axios', 'element-ui'],
-      // excludeChunks: ['log'],
       minify: {
         collapseWhitespace: false
       },
@@ -104,7 +104,6 @@ const config = {
       filename: 'ennergyanalysis.html',
       template: 'template/energyAnalysis.html',
       chunks: ['ennergy', 'manifest', 'echarts', 'vue', 'axios', 'iview'],
-      // excludeChunks: ['czxt', 'axios', 'echarts'],
       minify: {
         collapseWhitespace: false
       },
@@ -181,34 +180,17 @@ const config = {
       use: [{
         loader: 'url-loader',
         options: {
-          limit: 1024 * 8, // 8k一下的图片转为bs64编码
+          limit: 1024*5, // 5k一下的图片转为bs64编码
           name: 'resources/[name].[hash:8].[ext]'
         }
       },
-      {
-        loader: 'image-webpack-loader',
-        options: {
-          mozjpeg: {
-            progressive: true,
-            quality: 65
-          },
-          // optipng.enabled: false will disable optipng
-          optipng: {
-            enabled: false
-          },
-          pngquant: {
-            quality: '65-90',
-            speed: 4
-          },
-          gifsicle: {
-            interlaced: false
-          },
-          // the webp option will enable WEBP
-          webp: {
-            quality: 75
-          }
+      {	//压缩图片
+        loader:'image-webpack-loader',
+            options:{
+                bypassOnDebug: true
+            }
         }
-      }]
+    ]
     },
     {
       test: /\.(woff|woff2|eot|ttf|otf)$/,
