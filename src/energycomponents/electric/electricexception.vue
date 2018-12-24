@@ -49,7 +49,7 @@ import {
     searchEncodeMonthsVals,
     addDoubleArr
 }
-    from '../dataUtil.js';
+    from '../dataUtil.js'; 
 import {
     exceEncodeArr
 }
