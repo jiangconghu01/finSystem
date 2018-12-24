@@ -7,7 +7,7 @@ const isDev = process.env.NODE_ENV === 'development'
 const config = {
   entry: {
     czxt: ['babel-polyfill', './src/index.js'],
-    log: ['./src/log.js']
+    ennergy: ['babel-polyfill', './src/eneryAnalysis.js']
     // echarts: 'echarts',
     // vue: 'vue',
     // axios: 'axios'
@@ -75,6 +75,12 @@ const config = {
           test: /[\\/]node_modules[\\/]element-ui[\\/]/,
           name: 'element-ui',
           enforce: true
+        },
+        iview: {
+          chunks: 'all',
+          test: /[\\/]node_modules[\\/]iview[\\/]/,
+          name: 'element-ui',
+          enforce: true
         }
       }
     }
@@ -94,10 +100,10 @@ const config = {
       hash: true
     }),
     new HtmlWebpackPlugin({
-      title: 'log',
-      filename: 'log.html',
-      template: 'template/log.html',
-      chunks: ['log', 'manifest', 'vue'],
+      title: 'ennergy',
+      filename: 'ennergyanalysis.html',
+      template: 'template/energyAnalysis.html',
+      chunks: ['ennergy', 'manifest', 'echarts', 'vue', 'axios', 'iview'],
       // excludeChunks: ['czxt', 'axios', 'echarts'],
       minify: {
         collapseWhitespace: false
@@ -126,10 +132,9 @@ const config = {
         }
       }
     },
-
     {
       test: /\.scss$/,
-      include: path.resolve(__dirname, '../src/test'),
+      include: path.resolve(__dirname, '../src/energycomponents'),
       use: [isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
         {
           loader: 'css-loader',
@@ -139,12 +144,21 @@ const config = {
           }
         },
         'postcss-loader',
-        'sass-loader'
+        'sass-loader',
+        {
+          loader: 'sass-resources-loader',
+          options: {
+            resources: [
+              path.resolve(__dirname, '../src/css/energyanalysis.scss')
+            ]
+          }
+
+        }
       ]
     },
     {
       test: /\.scss$/,
-      exclude: path.resolve(__dirname, '../src/test'),
+      exclude: path.resolve(__dirname, '../src/energycomponents'),
       use: [isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
         {
           loader: 'css-loader'
